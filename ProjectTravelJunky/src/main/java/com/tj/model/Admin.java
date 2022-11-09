@@ -18,7 +18,7 @@ public class Admin {
 	private String mobile;
 	
 	public Admin() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public Integer getAdminId() {
