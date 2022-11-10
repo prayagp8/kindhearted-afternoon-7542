@@ -3,10 +3,14 @@ package com.tj.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Route {
@@ -22,30 +26,82 @@ public class Route {
 	private String pickupPoint;
 	private Double fare;
 
+	@OneToOne
+	private TicketDetails ticketDetails;
+
+	@OneToOne
+	private Bus bus;
+
+//	@OneToMany(cascade = CascadeType.ALL)
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	private currentUserSession currenUserSession;
+
+
+
+
 	public Route() {
 
 	}
 
-	public Route(Integer routeId, String routeFrom, String routeTo, LocalDateTime departureTime,
-			LocalDateTime arrivalTime, LocalDate dateOfJourney, String pickupPoint, Double fare) {
-		super();
-		this.routeId = routeId;
-		this.routeFrom = routeFrom;
-		this.routeTo = routeTo;
-		this.departureTime = departureTime;
-		this.arrivalTime = arrivalTime;
-		this.dateOfJourney = dateOfJourney;
-		this.pickupPoint = pickupPoint;
-		this.fare = fare;
-	}
 
-	public Integer getRouteId() {
-		return routeId;
-	}
+
+
+
+
+
+//	public Route(Integer routeId, String routeFrom, String routeTo, LocalDateTime departureTime,
+//			LocalDateTime arrivalTime, LocalDate dateOfJourney, String pickupPoint, Double fare,
+//			TicketDetails ticketDetails, Bus bus, currentUserSession currenUserSession) {
+//		super();
+//		this.routeId = routeId;
+//		this.routeFrom = routeFrom;
+//		this.routeTo = routeTo;
+//		this.departureTime = departureTime;
+//		this.arrivalTime = arrivalTime;
+//		this.dateOfJourney = dateOfJourney;
+//		this.pickupPoint = pickupPoint;
+//		this.fare = fare;
+//		this.ticketDetails = ticketDetails;
+//		this.bus = bus;
+//
+//
+//		this.currenUserSession = currenUserSession;
+//	}
+	
+	
+	
+	
+
+
+
+
+
 
 	public void setRouteId(Integer routeId) {
 		this.routeId = routeId;
 	}
+
+	public Route(Integer routeId, String routeFrom, String routeTo, LocalDateTime departureTime, LocalDateTime arrivalTime,
+		LocalDate dateOfJourney, String pickupPoint, Double fare, TicketDetails ticketDetails, Bus bus) {
+	super();
+	this.routeId = routeId;
+	this.routeFrom = routeFrom;
+	this.routeTo = routeTo;
+	this.departureTime = departureTime;
+	this.arrivalTime = arrivalTime;
+	this.dateOfJourney = dateOfJourney;
+	this.pickupPoint = pickupPoint;
+	this.fare = fare;
+	this.ticketDetails = ticketDetails;
+	this.bus = bus;
+}
+
+
+
+
+
+
 
 	public String getRouteFrom() {
 		return routeFrom;
@@ -103,11 +159,24 @@ public class Route {
 		this.fare = fare;
 	}
 
+
+
+
+
+
+
+
+
 	@Override
 	public String toString() {
 		return "Route [routeId=" + routeId + ", routeFrom=" + routeFrom + ", routeTo=" + routeTo + ", departureTime="
 				+ departureTime + ", arrivalTime=" + arrivalTime + ", dateOfJourney=" + dateOfJourney + ", pickupPoint="
-				+ pickupPoint + ", fare=" + fare + "]";
+				+ pickupPoint + ", fare=" + fare + ", ticketDetails=" + ticketDetails + ", bus=" + bus
+				+ ", currenUserSession=" + currenUserSession + "]";
 	}
+
+	
+	
+
 
 }

@@ -1,9 +1,14 @@
 package com.tj.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Customer {
@@ -17,15 +22,15 @@ public class Customer {
 	private String mobileNo;
 	private String email;
 	
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Feedback> feedbackList = new ArrayList<>(); 
+	
 	public Customer() {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public String toString() {
-		return "Customer [customerId=" + customerId + ", name=" + name + ", costumerpassword=" + costumerpassword
-				+ ", address=" + address + ", mobileNo=" + mobileNo + ", email=" + email + "]";
-	}
+	
+	
 
 	public Customer(Integer customerId, String name, String costumerpassword, String address, String mobileNo,
 			String email) {
@@ -37,6 +42,9 @@ public class Customer {
 		this.mobileNo = mobileNo;
 		this.email = email;
 	}
+
+
+
 
 	public Integer getCustomerId() {
 		return customerId;
@@ -85,5 +93,26 @@ public class Customer {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public List<Feedback> getFeedbackList() {
+		return feedbackList;
+	}
+
+	public void setFeedbackList(List<Feedback> feedbackList) {
+		this.feedbackList = feedbackList;
+	}
+
+	@Override
+	public String toString() {
+		return "Customer [customerId=" + customerId + ", name=" + name + ", costumerpassword=" + costumerpassword
+				+ ", address=" + address + ", mobileNo=" + mobileNo + ", email=" + email + "]";
+	}
+
+	
+	
+	
+	
+
+	
 	
 }

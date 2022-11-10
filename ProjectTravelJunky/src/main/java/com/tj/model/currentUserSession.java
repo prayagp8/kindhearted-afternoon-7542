@@ -1,10 +1,18 @@
 package com.tj.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+
 @Entity
 public class currentUserSession {
 
@@ -15,6 +23,10 @@ public class currentUserSession {
 	private String uuid;
 	
 	private LocalDateTime localDateTime;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Route> routeList = new ArrayList<>();
+	
 	
 	public currentUserSession() {
 		// TODO Auto-generated constructor stub

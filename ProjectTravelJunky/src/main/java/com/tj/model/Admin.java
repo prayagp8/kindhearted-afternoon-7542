@@ -25,15 +25,15 @@ public class Admin {
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Report> reports = new ArrayList<>();
 
-	public Admin(Integer adminId, String adminName, String password, String email, String mobile,
-			List<Report> reports) {
+	
+
+	public Admin(Integer adminId, String adminName, String password, String email, String mobile) {
 		super();
 		this.adminId = adminId;
 		this.adminName = adminName;
 		this.password = password;
 		this.email = email;
 		this.mobile = mobile;
-		this.reports = reports;
 	}
 
 	public Admin() {
@@ -92,7 +92,9 @@ public class Admin {
 	@Override
 	public String toString() {
 		return "Admin [adminId=" + adminId + ", adminName=" + adminName + ", password=" + password + ", email=" + email
-				+ ", mobile=" + mobile + ", reports=" + reports + "]";
+				+ ", mobile=" + mobile + "]";
 	}
+
+	
 
 }
