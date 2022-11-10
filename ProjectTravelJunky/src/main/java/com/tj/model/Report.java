@@ -42,9 +42,8 @@ public class Report {
 		this.reportType = reportType;
 	}
 
-	public Report(Integer reportId, String reportName, String reportType) {
-		super();
-		this.reportId = reportId;
+	public Report(String reportName, String reportType) {
+		super();		
 		this.reportName = reportName;
 		this.reportType = reportType;
 	}
