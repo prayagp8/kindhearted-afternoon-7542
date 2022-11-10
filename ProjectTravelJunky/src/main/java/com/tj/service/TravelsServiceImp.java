@@ -13,18 +13,19 @@ public class TravelsServiceImp implements TravelsService{
 
 	@Autowired
 	private TravelsDao tDao;
-	
-	
+
+
 	@Override
 	public Travels addTravels(Travels travels) throws TravelsException {
 		// TODO Auto-generated method stub
 		Optional<Travels> trav = tDao.findById(travels.getTravelsId());
 
-		if(trav!=null) {
-			throw new TravelsException("Travels already exists..");
-		}
+		if(trav.isPresent()) {
 
-		return tDao.save(travels);
+			throw new TravelsException("Travel company is already added!!");
+		}else {
+			return tDao.save(trav.get());
+		}
 	}
 
 	@Override
@@ -32,10 +33,11 @@ public class TravelsServiceImp implements TravelsService{
 		// TODO Auto-generated method stub
 		Optional<Travels> trav = tDao.findById(travels.getTravelsId());
 
-		if(trav==null) {
-			throw new TravelsException("Travels not exists..");
+		if(trav.isPresent()) {
+			return tDao.save(travels);
+		}else {
+			throw new TravelsException("Travel company not exist !!");
 		}
-		return tDao.save(travels);
 	}
 
 	@Override
