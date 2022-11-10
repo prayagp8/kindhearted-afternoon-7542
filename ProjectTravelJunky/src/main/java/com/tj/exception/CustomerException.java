@@ -1,5 +1,7 @@
 package com.tj.exception;
 
+import org.springframework.web.bind.annotation.ControllerAdvice;
+
 public class CustomerException extends Exception {
 
 	public CustomerException() {
