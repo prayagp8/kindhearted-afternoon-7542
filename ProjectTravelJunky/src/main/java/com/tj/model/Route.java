@@ -33,7 +33,6 @@ public class Route {
 	private Bus bus;
 
 
-	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private currentUserSession currenUserSession;
 
@@ -43,7 +42,6 @@ public class Route {
 	public Route() {
 
 	}
-
 
 
 
