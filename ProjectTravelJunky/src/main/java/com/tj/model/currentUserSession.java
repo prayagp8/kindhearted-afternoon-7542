@@ -27,6 +27,11 @@ public class currentUserSession {
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Route> routeList = new ArrayList<>();
 	
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Bus> busList = new ArrayList<>();
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Travels> travelsList = new ArrayList<>();
 	
 	public currentUserSession() {
 		// TODO Auto-generated constructor stub

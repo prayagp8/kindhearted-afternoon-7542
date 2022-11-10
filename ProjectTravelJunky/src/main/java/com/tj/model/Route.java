@@ -32,8 +32,7 @@ public class Route {
 	@OneToOne
 	private Bus bus;
 
-//	@OneToMany(cascade = CascadeType.ALL)
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	private currentUserSession currenUserSession;
 
@@ -43,38 +42,6 @@ public class Route {
 	public Route() {
 
 	}
-
-
-
-
-
-
-
-//	public Route(Integer routeId, String routeFrom, String routeTo, LocalDateTime departureTime,
-//			LocalDateTime arrivalTime, LocalDate dateOfJourney, String pickupPoint, Double fare,
-//			TicketDetails ticketDetails, Bus bus, currentUserSession currenUserSession) {
-//		super();
-//		this.routeId = routeId;
-//		this.routeFrom = routeFrom;
-//		this.routeTo = routeTo;
-//		this.departureTime = departureTime;
-//		this.arrivalTime = arrivalTime;
-//		this.dateOfJourney = dateOfJourney;
-//		this.pickupPoint = pickupPoint;
-//		this.fare = fare;
-//		this.ticketDetails = ticketDetails;
-//		this.bus = bus;
-//
-//
-//		this.currenUserSession = currenUserSession;
-//	}
-	
-	
-	
-	
-
-
-
 
 
 
