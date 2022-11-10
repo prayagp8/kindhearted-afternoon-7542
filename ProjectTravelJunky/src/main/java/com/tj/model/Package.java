@@ -1,9 +1,12 @@
 package com.tj.model;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Package {
@@ -14,7 +17,7 @@ public class Package {
 	private String packageDescription;
 	private String packageType;
 	private Double packageCost;
-	private PaymentDetails payment;
+	
 	
 	public Package() {
 		// TODO Auto-generated constructor stub
@@ -28,7 +31,6 @@ public class Package {
 		this.packageDescription = packageDescription;
 		this.packageType = packageType;
 		this.packageCost = packageCost;
-		this.payment = payment;
 	}
 
 	public Integer getPackageId() {
@@ -71,20 +73,14 @@ public class Package {
 		this.packageCost = packageCost;
 	}
 
-	public PaymentDetails getPayment() {
-		return payment;
-	}
-
-	public void setPayment(PaymentDetails payment) {
-		this.payment = payment;
-	}
-
 	@Override
 	public String toString() {
 		return "Package [packageId=" + packageId + ", packageName=" + packageName + ", packageDescription="
-				+ packageDescription + ", packageType=" + packageType + ", packageCost=" + packageCost + ", payment="
-				+ payment + "]";
+				+ packageDescription + ", packageType=" + packageType + ", packageCost=" + packageCost + "]";
 	}
+
+	
+	
 	
 	
 }
