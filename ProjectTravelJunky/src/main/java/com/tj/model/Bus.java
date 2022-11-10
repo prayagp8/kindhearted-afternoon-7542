@@ -16,7 +16,7 @@ public class Bus {
 	private Integer capacity;
 
 	public Bus() {
-//		this is bus 
+//dummy
 	}
 
 	public Bus(Integer busId, String busType, String busNumber, Integer capacity) {

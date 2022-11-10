@@ -29,7 +29,7 @@ public class currentUserSession {
 	
 	
 	public currentUserSession() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public currentUserSession(Integer userId, String uuid, LocalDateTime localDateTime) {
