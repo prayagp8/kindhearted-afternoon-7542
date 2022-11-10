@@ -30,6 +30,12 @@ public class Feedback {
 		this.submitDate = submitDate;
 	}
 
+	public Feedback(String feedback, Integer rating, LocalDate submitDate) {
+		super();		
+		this.feedback = feedback;
+		this.rating = rating;
+		this.submitDate = submitDate;
+	}
 
 	public Integer getFeedbackId() {
 		return feedbackId;
