@@ -45,27 +45,37 @@ public class Route {
 
 
 
+
+	public Route(Integer routeId, String routeFrom, String routeTo, LocalDateTime departureTime,
+			LocalDateTime arrivalTime, LocalDate dateOfJourney, String pickupPoint, Double fare,
+			TicketDetails ticketDetails, Bus bus, currentUserSession currenUserSession) {
+		super();
+		this.routeId = routeId;
+		this.routeFrom = routeFrom;
+		this.routeTo = routeTo;
+		this.departureTime = departureTime;
+		this.arrivalTime = arrivalTime;
+		this.dateOfJourney = dateOfJourney;
+		this.pickupPoint = pickupPoint;
+		this.fare = fare;
+		this.ticketDetails = ticketDetails;
+		this.bus = bus;
+		this.currenUserSession = currenUserSession;
+	}
+
+
+
+
+	public Integer getRouteId() {
+		return routeId;
+	}
+
+
+
+
 	public void setRouteId(Integer routeId) {
 		this.routeId = routeId;
 	}
-
-	public Route(Integer routeId, String routeFrom, String routeTo, LocalDateTime departureTime, LocalDateTime arrivalTime,
-		LocalDate dateOfJourney, String pickupPoint, Double fare, TicketDetails ticketDetails, Bus bus) {
-	super();
-	this.routeId = routeId;
-	this.routeFrom = routeFrom;
-	this.routeTo = routeTo;
-	this.departureTime = departureTime;
-	this.arrivalTime = arrivalTime;
-	this.dateOfJourney = dateOfJourney;
-	this.pickupPoint = pickupPoint;
-	this.fare = fare;
-	this.ticketDetails = ticketDetails;
-	this.bus = bus;
-}
-
-
-
 
 
 
@@ -74,53 +84,92 @@ public class Route {
 		return routeFrom;
 	}
 
+
+
+
 	public void setRouteFrom(String routeFrom) {
 		this.routeFrom = routeFrom;
 	}
+
+
+
 
 	public String getRouteTo() {
 		return routeTo;
 	}
 
+
+
+
 	public void setRouteTo(String routeTo) {
 		this.routeTo = routeTo;
 	}
+
+
+
 
 	public LocalDateTime getDepartureTime() {
 		return departureTime;
 	}
 
+
+
+
 	public void setDepartureTime(LocalDateTime departureTime) {
 		this.departureTime = departureTime;
 	}
+
+
+
 
 	public LocalDateTime getArrivalTime() {
 		return arrivalTime;
 	}
 
+
+
+
 	public void setArrivalTime(LocalDateTime arrivalTime) {
 		this.arrivalTime = arrivalTime;
 	}
+
+
+
 
 	public LocalDate getDateOfJourney() {
 		return dateOfJourney;
 	}
 
+
+
+
 	public void setDateOfJourney(LocalDate dateOfJourney) {
 		this.dateOfJourney = dateOfJourney;
 	}
+
+
+
 
 	public String getPickupPoint() {
 		return pickupPoint;
 	}
 
+
+
+
 	public void setPickupPoint(String pickupPoint) {
 		this.pickupPoint = pickupPoint;
 	}
 
+
+
+
 	public Double getFare() {
 		return fare;
 	}
+
+
+
 
 	public void setFare(Double fare) {
 		this.fare = fare;
@@ -129,7 +178,44 @@ public class Route {
 
 
 
+	public TicketDetails getTicketDetails() {
+		return ticketDetails;
+	}
 
+
+
+
+	public void setTicketDetails(TicketDetails ticketDetails) {
+		this.ticketDetails = ticketDetails;
+	}
+
+
+
+
+	public Bus getBus() {
+		return bus;
+	}
+
+
+
+
+	public void setBus(Bus bus) {
+		this.bus = bus;
+	}
+
+
+
+
+	public currentUserSession getCurrenUserSession() {
+		return currenUserSession;
+	}
+
+
+
+
+	public void setCurrenUserSession(currentUserSession currenUserSession) {
+		this.currenUserSession = currenUserSession;
+	}
 
 
 
@@ -139,11 +225,17 @@ public class Route {
 		return "Route [routeId=" + routeId + ", routeFrom=" + routeFrom + ", routeTo=" + routeTo + ", departureTime="
 				+ departureTime + ", arrivalTime=" + arrivalTime + ", dateOfJourney=" + dateOfJourney + ", pickupPoint="
 				+ pickupPoint + ", fare=" + fare + ", ticketDetails=" + ticketDetails + ", bus=" + bus
-				+ ", currenUserSession=" + currenUserSession + "]";
+				+ ", currenUserSession=" + currenUserSession + ", getRouteId()=" + getRouteId() + ", getRouteFrom()="
+				+ getRouteFrom() + ", getRouteTo()=" + getRouteTo() + ", getDepartureTime()=" + getDepartureTime()
+				+ ", getArrivalTime()=" + getArrivalTime() + ", getDateOfJourney()=" + getDateOfJourney()
+				+ ", getPickupPoint()=" + getPickupPoint() + ", getFare()=" + getFare() + ", getTicketDetails()="
+				+ getTicketDetails() + ", getBus()=" + getBus() + ", getCurrenUserSession()=" + getCurrenUserSession()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
 	}
 
-	
-	
 
+
+	
 
 }
