@@ -11,6 +11,7 @@
 - [Rajan Chauhan](https://github.com/rajanchauhan165)
 - [Ranjeet Kumar](https://github.com/ranjeetmasaischool)
 - [Abhishek Das](https://github.com/abhidas0810)
+- [Gautam Kumar](https://github.com/gautamprajapat8)
 
 
 ## Admin Features
