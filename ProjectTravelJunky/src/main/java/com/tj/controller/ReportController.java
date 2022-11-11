@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tj.exception.AdminException;
 import com.tj.exception.ReportException;
 import com.tj.model.Report;
 import com.tj.service.ReportService;
@@ -40,6 +41,14 @@ public class ReportController {
 	@GetMapping("/reports")
 	public ResponseEntity<List<Report>> viewAllReports() throws ReportException {
 		return new ResponseEntity<List<Report>>(reportService.viewAllReports(), HttpStatus.OK);
+	}
+
+	@GetMapping("/reportsbyadmin/{id}")
+	public ResponseEntity<List<Report>> getReportByAdminId(@PathVariable("id") Integer aid)
+			throws AdminException, ReportException {
+
+		return new ResponseEntity<List<Report>>(reportService.viewReportByAdminId(aid), HttpStatus.OK);
+
 	}
 
 }

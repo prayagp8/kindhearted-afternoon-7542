@@ -6,8 +6,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tj.exception.AdminException;
 import com.tj.exception.ReportException;
+import com.tj.model.Admin;
 import com.tj.model.Report;
+import com.tj.repository.AdminDao;
 import com.tj.repository.ReportDao;
 
 @Service
@@ -15,6 +18,9 @@ public class ReportServiceImpl implements ReportService {
 
 	@Autowired
 	private ReportDao reportDao;
+
+	@Autowired
+	private AdminDao aDao;
 
 	@Override
 	public Report addReport(Report report) throws ReportException {
@@ -52,6 +58,25 @@ public class ReportServiceImpl implements ReportService {
 			throw new ReportException("No report exists.");
 		}
 		return reports;
+	}
+
+	@Override
+	public List<Report> viewReportByAdminId(Integer aid) throws AdminException, ReportException {
+
+		Optional<Admin> findedAdmin = aDao.findById(aid);
+
+		if (findedAdmin.isPresent()) {
+			List<Report> reports = findedAdmin.get().getReports();
+
+			if (reports.size() > 0) {
+				return reports;
+			}
+			throw new ReportException("Reports Not found by Admin Id: " + aid);
+
+		}
+
+		throw new AdminException("Admin is not avalible with Id: " + aid);
+
 	}
 
 }
