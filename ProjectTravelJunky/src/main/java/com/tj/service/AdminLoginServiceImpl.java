@@ -20,20 +20,20 @@ import net.bytebuddy.utility.RandomString;
 public class AdminLoginServiceImpl implements LoginService {
 
 	@Autowired
-	private AdminDao aDao;
+	private AdminDao adminDao;
 	@Autowired
-	private SessionDao sDao;
+	private SessionDao sessionDao;
 
 
 	@Override
 	public String logIntoAccount(LoginDTO dto) throws LoginException {
-		Admin exsistingCustomer = aDao.findByMobile(dto.getMobileNo());
+		Admin exsistingCustomer = adminDao.findByMobile(dto.getMobileNo());
 
 		if(exsistingCustomer == null) {
 			throw new LoginException("please enter valid mobile number!");
 		}
 
-		Optional<currentUserSession> validAdminSessionopt = sDao.findById(exsistingCustomer.getAdminId());
+		Optional<currentUserSession> validAdminSessionopt = sessionDao.findById(exsistingCustomer.getAdminId());
 
 		if(validAdminSessionopt.isPresent()) {
 			throw new LoginException("user already logged in with this number!!!");
@@ -45,7 +45,7 @@ public class AdminLoginServiceImpl implements LoginService {
 
 			currentUserSession currentUserSession = new currentUserSession(exsistingCustomer.getAdminId(), key, LocalDateTime.now());
 
-			sDao.save(currentUserSession);
+			sessionDao.save(currentUserSession);
 			return currentUserSession.toString();
 
 		}else {
@@ -55,13 +55,13 @@ public class AdminLoginServiceImpl implements LoginService {
 
 	@Override
 	public String logOutFromAccount(String key) throws LoginException {
-		currentUserSession validAdminSession = sDao.findByUuid(key);
+		currentUserSession validAdminSession = sessionDao.findByUuid(key);
 
 		if(validAdminSession == null) {
 			throw new LoginException("user not logged in with this number");
 		}
 
-		sDao.delete(validAdminSession);
+		sessionDao.delete(validAdminSession);
 
 		return "Logged Out !";
 	}

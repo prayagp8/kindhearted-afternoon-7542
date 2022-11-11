@@ -22,11 +22,11 @@ public class FeedbackServiceImpl implements FeedbackService {
 	private FeedbackDao feedbackDao;
 
 	@Autowired
-	private CustomerDao cDao;
+	private CustomerDao customerDao;
 
 	@Override
-	public Feedback addFeedback(Feedback feedback, Integer cid) throws FeedbackException, CustomerException {
-		Optional<Customer> findedCustomer = cDao.findById(cid);
+	public Feedback addFeedback(Feedback feedback, Integer customerId) throws FeedbackException, CustomerException {
+		Optional<Customer> findedCustomer = customerDao.findById(customerId);
 
 		if (findedCustomer.isPresent()) {
 
@@ -40,7 +40,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
 			
 		} else {
-			throw new CustomerException("Customer is Not avalible By Id: " + cid);
+			throw new CustomerException("Customer is Not avalible By Id: " + customerId);
 		}
 
 	}
@@ -57,7 +57,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 	@Override
 	public List<Feedback> findByCustomerId(Integer customerId) throws FeedbackException, CustomerException {
 
-		Optional<Customer> findedCust = cDao.findById(customerId);
+		Optional<Customer> findedCust = customerDao.findById(customerId);
 		if (findedCust.isPresent()) {
 
 			Customer cus = findedCust.get();

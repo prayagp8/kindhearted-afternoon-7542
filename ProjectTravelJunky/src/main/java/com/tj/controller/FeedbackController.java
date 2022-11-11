@@ -24,25 +24,27 @@ public class FeedbackController {
 	@Autowired
 	private FeedbackService feedbackService;
 
-	@PostMapping("/feedbacks/{cid}")
-	public ResponseEntity<Feedback> addFeedback(@RequestBody Feedback feedback,@PathVariable("cid") Integer cid) throws FeedbackException, CustomerException {
-		
-		return new ResponseEntity<Feedback>(feedbackService.addFeedback(feedback,cid), HttpStatus.ACCEPTED);
+	@PostMapping("/feedbacks/{customerId}")
+	public ResponseEntity<Feedback> addFeedback(@RequestBody Feedback feedback,
+			@PathVariable("customerId") Integer customerId) throws FeedbackException, CustomerException {
+
+		return new ResponseEntity<Feedback>(feedbackService.addFeedback(feedback, customerId), HttpStatus.ACCEPTED);
 	}
 
 	@GetMapping("/feedbacks/{feedbackId}")
-	public ResponseEntity<Feedback> findByFeeedbackId(@PathVariable Integer feedbackId) throws FeedbackException {
+	public ResponseEntity<Feedback> findByFeeedbackId(@PathVariable("feedbackId") Integer feedbackId)
+			throws FeedbackException {
 		return new ResponseEntity<Feedback>(feedbackService.findByFeeedbackId(feedbackId), HttpStatus.OK);
 	}
 
 	@GetMapping("/feedbackcustomer/{customerId}")
-	public ResponseEntity<List<Feedback>> findByCustomerId(@PathVariable Integer customerId) throws FeedbackException, CustomerException {
-	
-		List<Feedback> feedBacks= feedbackService.findByCustomerId(customerId);
-		
-		return new ResponseEntity<List<Feedback>>(feedBacks,HttpStatus.OK);
-		
-		
+	public ResponseEntity<List<Feedback>> findByCustomerId(@PathVariable("customerId") Integer customerId)
+			throws FeedbackException, CustomerException {
+
+		List<Feedback> feedBacks = feedbackService.findByCustomerId(customerId);
+
+		return new ResponseEntity<List<Feedback>>(feedBacks, HttpStatus.OK);
+
 	}
 
 	@GetMapping("/feedbacks")

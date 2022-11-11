@@ -8,7 +8,7 @@ import com.tj.model.Feedback;
 
 public interface FeedbackService {
 
-	public Feedback addFeedback(Feedback feedback, Integer cid) throws FeedbackException,CustomerException;
+	public Feedback addFeedback(Feedback feedback, Integer customerId) throws FeedbackException,CustomerException;
 
 	public Feedback findByFeeedbackId(Integer feedbackId) throws FeedbackException;
 

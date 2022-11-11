@@ -29,12 +29,12 @@ public class ReportController {
 	}
 
 	@DeleteMapping("/reports/{reportId}")
-	public ResponseEntity<Report> deleteReport(@PathVariable Integer reportId) throws ReportException {
+	public ResponseEntity<Report> deleteReport(@PathVariable("reportId") Integer reportId) throws ReportException {
 		return new ResponseEntity<Report>(reportService.deleteReport(reportId), HttpStatus.OK);
 	}
 
 	@GetMapping("/reports/{reportId}")
-	public ResponseEntity<Report> findByReportId(@PathVariable Integer reportId) throws ReportException {
+	public ResponseEntity<Report> findByReportId(@PathVariable("reportId") Integer reportId) throws ReportException {
 		return new ResponseEntity<Report>(reportService.findByReportId(reportId), HttpStatus.OK);
 	}
 
@@ -43,11 +43,11 @@ public class ReportController {
 		return new ResponseEntity<List<Report>>(reportService.viewAllReports(), HttpStatus.OK);
 	}
 
-	@GetMapping("/reportsbyadmin/{id}")
-	public ResponseEntity<List<Report>> getReportByAdminId(@PathVariable("id") Integer aid)
+	@GetMapping("/reportsbyadmin/{adminId}")
+	public ResponseEntity<List<Report>> getReportByAdminId(@PathVariable("adminId") Integer adminId)
 			throws AdminException, ReportException {
 
-		return new ResponseEntity<List<Report>>(reportService.viewReportByAdminId(aid), HttpStatus.OK);
+		return new ResponseEntity<List<Report>>(reportService.viewReportByAdminId(adminId), HttpStatus.OK);
 
 	}
 
