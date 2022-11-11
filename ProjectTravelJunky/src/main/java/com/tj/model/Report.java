@@ -1,9 +1,11 @@
 package com.tj.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Report {
@@ -13,6 +15,11 @@ public class Report {
 	private Integer reportId;
 	private String reportName;
 	private String reportType;
+	
+	
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Admin admin;
 	
 	public Report() {
 		// TODO Auto-generated constructor stub

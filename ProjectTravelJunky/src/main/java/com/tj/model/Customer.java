@@ -24,7 +24,7 @@ public class Customer {
 	private String mobileNo;
 	private String email;
 	
-	@JsonIgnore
+	
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Feedback> feedbackList = new ArrayList<>(); 
 	
