@@ -30,13 +30,10 @@ public class RouteServiceImpl implements RouteService {
 	@Override
 	public Route addRoute(Route route) throws RouteException {
 
-		Optional<Route> exsistingRoute = rDao.findById(route.getRouteId());
+//		Optional<Route> exsistingRoute = rDao.findById(route.getRouteId());
 
-		if(exsistingRoute.isPresent()) {
-			throw new RouteException("This route is already added!!");
-		}else {
 			return rDao.save(route);
-		}
+		
 	}
 
 	@Override
@@ -51,7 +48,7 @@ public class RouteServiceImpl implements RouteService {
 					Route route = exsistingRoute.get();
 					Bus bus = exsistingBus.get();
 					TicketDetails ticket = exsistingTicket.get();
-					route.setBus(bus);
+//					route.setBus(bus);
 					ticket.setStatus("booked!!");
 					ticket.setRoute(route);
 					tDao.save(ticket);

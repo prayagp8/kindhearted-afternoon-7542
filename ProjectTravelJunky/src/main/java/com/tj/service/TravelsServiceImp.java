@@ -17,13 +17,9 @@ public class TravelsServiceImp implements TravelsService{
 
 	@Override
 	public Travels addTravels(Travels travels) throws TravelsException {
-		Optional<Travels> trav = tDao.findById(travels.getTravelsId());
-
-		if(trav.isPresent()) {
-			throw new TravelsException("Travel company is already added!!");
-		}else {
-			return tDao.save(trav.get());
-		}
+	
+			return tDao.save(travels);
+		
 	}
 
 	@Override

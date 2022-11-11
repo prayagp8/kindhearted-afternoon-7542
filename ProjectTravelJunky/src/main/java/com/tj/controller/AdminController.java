@@ -18,7 +18,7 @@ public class AdminController {
 	@Autowired
 	private ReportService reportService;
 
-	@GetMapping("/reports")
+	@GetMapping("/admin/reports")
 	public ResponseEntity<List<Report>> viewAllReports() throws ReportException {
 		return new ResponseEntity<List<Report>>(reportService.viewAllReports(), HttpStatus.OK);
 	}

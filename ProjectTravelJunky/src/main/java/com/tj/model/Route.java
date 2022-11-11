@@ -12,12 +12,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Route {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer routeId;
+	
 	private String routeFrom;
 	private String routeTo;
 	private LocalDateTime departureTime;
@@ -26,13 +29,16 @@ public class Route {
 	private String pickupPoint;
 	private Double fare;
 
+	@JsonIgnore
 	@OneToOne
 	private TicketDetails ticketDetails;
 
+	@JsonIgnore
 	@OneToOne
 	private Bus bus;
 
 
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	private currentUserSession currenUserSession;
 
@@ -42,7 +48,108 @@ public class Route {
 	public Route() {
 
 	}
+	
+	
 
+	public Integer getRouteId() {
+		return routeId;
+	}
+
+	public void setRouteId(Integer routeId) {
+		this.routeId = routeId;
+	}
+
+	public String getRouteFrom() {
+		return routeFrom;
+	}
+
+	public void setRouteFrom(String routeFrom) {
+		this.routeFrom = routeFrom;
+	}
+
+	public String getRouteTo() {
+		return routeTo;
+	}
+
+	public void setRouteTo(String routeTo) {
+		this.routeTo = routeTo;
+	}
+
+	public LocalDateTime getDepartureTime() {
+		return departureTime;
+	}
+
+	public void setDepartureTime(LocalDateTime departureTime) {
+		this.departureTime = departureTime;
+	}
+
+	public LocalDateTime getArrivalTime() {
+		return arrivalTime;
+	}
+
+	public void setArrivalTime(LocalDateTime arrivalTime) {
+		this.arrivalTime = arrivalTime;
+	}
+
+	public LocalDate getDateOfJourney() {
+		return dateOfJourney;
+	}
+
+	public void setDateOfJourney(LocalDate dateOfJourney) {
+		this.dateOfJourney = dateOfJourney;
+	}
+
+	public String getPickupPoint() {
+		return pickupPoint;
+	}
+
+	public void setPickupPoint(String pickupPoint) {
+		this.pickupPoint = pickupPoint;
+	}
+
+	public Double getFare() {
+		return fare;
+	}
+
+	public void setFare(Double fare) {
+		this.fare = fare;
+	}
+
+
+
+	public TicketDetails getTicketDetails() {
+		return ticketDetails;
+	}
+
+
+
+	public void setTicketDetails(TicketDetails ticketDetails) {
+		this.ticketDetails = ticketDetails;
+	}
+
+
+
+	public Bus getBus() {
+		return bus;
+	}
+
+
+
+	public void setBus(Bus bus) {
+		this.bus = bus;
+	}
+
+
+
+	public currentUserSession getCurrenUserSession() {
+		return currenUserSession;
+	}
+
+
+
+	public void setCurrenUserSession(currentUserSession currenUserSession) {
+		this.currenUserSession = currenUserSession;
+	}
 
 
 
@@ -63,176 +170,15 @@ public class Route {
 		this.currenUserSession = currenUserSession;
 	}
 
+	
+	
+	
 
 
 
-	public Integer getRouteId() {
-		return routeId;
-	}
 
 
-
-
-	public void setRouteId(Integer routeId) {
-		this.routeId = routeId;
-	}
-
-
-
-
-	public String getRouteFrom() {
-		return routeFrom;
-	}
-
-
-
-
-	public void setRouteFrom(String routeFrom) {
-		this.routeFrom = routeFrom;
-	}
-
-
-
-
-	public String getRouteTo() {
-		return routeTo;
-	}
-
-
-
-
-	public void setRouteTo(String routeTo) {
-		this.routeTo = routeTo;
-	}
-
-
-
-
-	public LocalDateTime getDepartureTime() {
-		return departureTime;
-	}
-
-
-
-
-	public void setDepartureTime(LocalDateTime departureTime) {
-		this.departureTime = departureTime;
-	}
-
-
-
-
-	public LocalDateTime getArrivalTime() {
-		return arrivalTime;
-	}
-
-
-
-
-	public void setArrivalTime(LocalDateTime arrivalTime) {
-		this.arrivalTime = arrivalTime;
-	}
-
-
-
-
-	public LocalDate getDateOfJourney() {
-		return dateOfJourney;
-	}
-
-
-
-
-	public void setDateOfJourney(LocalDate dateOfJourney) {
-		this.dateOfJourney = dateOfJourney;
-	}
-
-
-
-
-	public String getPickupPoint() {
-		return pickupPoint;
-	}
-
-
-
-
-	public void setPickupPoint(String pickupPoint) {
-		this.pickupPoint = pickupPoint;
-	}
-
-
-
-
-	public Double getFare() {
-		return fare;
-	}
-
-
-
-
-	public void setFare(Double fare) {
-		this.fare = fare;
-	}
-
-
-
-
-	public TicketDetails getTicketDetails() {
-		return ticketDetails;
-	}
-
-
-
-
-	public void setTicketDetails(TicketDetails ticketDetails) {
-		this.ticketDetails = ticketDetails;
-	}
-
-
-
-
-	public Bus getBus() {
-		return bus;
-	}
-
-
-
-
-	public void setBus(Bus bus) {
-		this.bus = bus;
-	}
-
-
-
-
-	public currentUserSession getCurrenUserSession() {
-		return currenUserSession;
-	}
-
-
-
-
-	public void setCurrenUserSession(currentUserSession currenUserSession) {
-		this.currenUserSession = currenUserSession;
-	}
-
-
-
-
-	@Override
-	public String toString() {
-		return "Route [routeId=" + routeId + ", routeFrom=" + routeFrom + ", routeTo=" + routeTo + ", departureTime="
-				+ departureTime + ", arrivalTime=" + arrivalTime + ", dateOfJourney=" + dateOfJourney + ", pickupPoint="
-				+ pickupPoint + ", fare=" + fare + ", ticketDetails=" + ticketDetails + ", bus=" + bus
-				+ ", currenUserSession=" + currenUserSession + ", getRouteId()=" + getRouteId() + ", getRouteFrom()="
-				+ getRouteFrom() + ", getRouteTo()=" + getRouteTo() + ", getDepartureTime()=" + getDepartureTime()
-				+ ", getArrivalTime()=" + getArrivalTime() + ", getDateOfJourney()=" + getDateOfJourney()
-				+ ", getPickupPoint()=" + getPickupPoint() + ", getFare()=" + getFare() + ", getTicketDetails()="
-				+ getTicketDetails() + ", getBus()=" + getBus() + ", getCurrenUserSession()=" + getCurrenUserSession()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
-				+ "]";
-	}
+	
 
 
 
