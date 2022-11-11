@@ -19,6 +19,10 @@ public class TicketDetails {
 	
 	@OneToOne
 	private Package packages;
+	
+	public TicketDetails() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public TicketDetails(Integer ticketId, String status, Route route, Package packages) {
 		super();
@@ -59,22 +63,4 @@ public class TicketDetails {
 	public void setPackages(Package packages) {
 		this.packages = packages;
 	}
-
-	@Override
-	public String toString() {
-		return "TicketDetails [ticketId=" + ticketId + ", status=" + status + ", route=" + route + ", packages="
-				+ packages + "]";
-	}
-	
-	
-	
-	public TicketDetails() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	
-	
-	
-	
-
 }
