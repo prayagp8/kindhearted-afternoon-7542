@@ -21,7 +21,9 @@ public class RouteServiceImpl implements RouteService {
 
 	@Autowired
 	private RouteDao rDao;
+	@Autowired
 	private BusDao bDao;
+	@Autowired
 	private TicketDetailsDAO tDao;
 
 
@@ -38,7 +40,7 @@ public class RouteServiceImpl implements RouteService {
 	}
 
 	@Override
-	public Route updateRoute(Integer routeId, Integer busId, Integer tickedId) throws RouteException, BusException, TicketException {
+	public Route ticketBook(Integer routeId, Integer busId, Integer tickedId) throws RouteException, BusException, TicketException {
 		Optional<Route> exsistingRoute = rDao.findById(routeId);
 		Optional<Bus> exsistingBus = bDao.findById(busId);
 		Optional<TicketDetails> exsistingTicket = tDao.findById(tickedId);
@@ -106,6 +108,20 @@ public class RouteServiceImpl implements RouteService {
 		}else {
 			return exsistingRouteList;
 		}
+	}
+
+	@Override
+	public Route updateRoute(Route route) throws RouteException {
+		Optional<Route> exsistingRoute = rDao.findById(route.getRouteId());
+		
+		if(exsistingRoute.isPresent()) {
+			Route updatedRoute = rDao.save(route);
+			return updatedRoute;
+			
+		}else {
+			throw new RouteException("No such route is present to update!!");
+		}
+		
 	}
 
 }
