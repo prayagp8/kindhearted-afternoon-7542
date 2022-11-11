@@ -2,7 +2,7 @@
 # Travel Junky - An Online Trip Management System
 
 
-![Logo](https://i.ibb.co/qrhttTV/TJ-GIT.png)
+![Logo](https://i.ibb.co/ZNZ87Gt/TJGRADIENT.png)
 
 
 ## Authors
@@ -34,6 +34,17 @@
 - Provide/View Testimonials
 
 
+
+
+## Tech Stack
+
+**Client:** Java, SpringBoot, JPA with Hibernate
+
+**RDBMS:** MySQL
+
+**Testing:** Postman, Swagger
+
+
 ## API Reference (pending)
 
 #### Get all items
@@ -55,7 +66,4 @@
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
 | `id`      | `string` | **Required**. Id of item to fetch |
-
-#### add(num1, num2)
-
 
