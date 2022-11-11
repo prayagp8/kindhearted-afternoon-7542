@@ -43,12 +43,4 @@ public class ReportController {
 		return new ResponseEntity<List<Report>>(reportService.viewAllReports(), HttpStatus.OK);
 	}
 
-	@GetMapping("/reportsbyadmin/{adminId}")
-	public ResponseEntity<List<Report>> getReportByAdminId(@PathVariable("adminId") Integer adminId)
-			throws AdminException, ReportException {
-
-		return new ResponseEntity<List<Report>>(reportService.viewReportByAdminId(adminId), HttpStatus.OK);
-
-	}
-
 }

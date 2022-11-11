@@ -15,7 +15,5 @@ public interface ReportService {
 	public Report findByReportId(Integer reportId) throws ReportException;
 
 	public List<Report> viewAllReports() throws ReportException;
-	
-	public List<Report> viewReportByAdminId(Integer adminId) throws AdminException,ReportException;
-
+		
 }
