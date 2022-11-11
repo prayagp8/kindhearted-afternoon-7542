@@ -29,7 +29,7 @@ public class Bus {
 	private Travels travels;
 	
 	public Bus() {
-		
+//dummy
 	}
 
 	public Bus(Integer busId, String busType, String busNumber, Integer capacity, Route route) {

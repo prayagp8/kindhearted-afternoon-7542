@@ -34,7 +34,7 @@ public class currentUserSession {
 	private List<Travels> travelsList = new ArrayList<>();
 	
 	public currentUserSession() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public currentUserSession(Integer userId, String uuid, LocalDateTime localDateTime) {
