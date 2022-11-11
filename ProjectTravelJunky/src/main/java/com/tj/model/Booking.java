@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+
 @Entity
 public class Booking {
 	@Id
@@ -16,18 +19,22 @@ public class Booking {
 	private String bookingTitle;
 	private LocalDate bookingDate;
 	
+	@OneToOne
+	private Package packages;
+	
 	public Booking() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public Booking(Integer bookingId, String bookingType, String description, String bookingTitle,
-			LocalDate bookingDate) {
+			LocalDate bookingDate, Package packages) {
 		super();
 		this.bookingId = bookingId;
 		this.bookingType = bookingType;
 		this.description = description;
 		this.bookingTitle = bookingTitle;
 		this.bookingDate = bookingDate;
+		this.packages = packages;
 	}
 
 	public Integer getBookingId() {
@@ -70,11 +77,12 @@ public class Booking {
 		this.bookingDate = bookingDate;
 	}
 
-	@Override
-	public String toString() {
-		return "Booking [bookingId=" + bookingId + ", bookingType=" + bookingType + ", description=" + description
-				+ ", bookingTitle=" + bookingTitle + ", bookingDate=" + bookingDate + "]";
+	public Package getPackages() {
+		return packages;
 	}
-	
+
+	public void setPackages(Package packages) {
+		this.packages = packages;
+	}
 	
 }

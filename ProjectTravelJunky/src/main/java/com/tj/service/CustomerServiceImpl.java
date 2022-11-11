@@ -24,7 +24,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public Customer createCustomer(Customer customer) throws CustomerException {
 
-		System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+		
 		Customer exsistingcustomer = cDao.findByMobileNo(customer.getMobileNo());
 
 		if (exsistingcustomer != null) {

@@ -13,12 +13,17 @@ public class TravelsServiceImp implements TravelsService{
 
 	@Autowired
 	private TravelsDao tDao;
-	
-	
+
+
 	@Override
 	public Travels addTravels(Travels travels) throws TravelsException {
+		Optional<Travels> trav = tDao.findById(travels.getTravelsId());
 
-		return tDao.save(travels);
+		if(trav.isPresent()) {
+			throw new TravelsException("Travel company is already added!!");
+		}else {
+			return tDao.save(trav.get());
+		}
 	}
 
 	@Override
