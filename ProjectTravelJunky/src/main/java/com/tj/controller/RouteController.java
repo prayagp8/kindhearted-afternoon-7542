@@ -25,33 +25,9 @@ public class RouteController {
 	@Autowired
 	private RouteService rService;
 	
-	@PostMapping("/routes")
-	public ResponseEntity<Route> addRoute(@RequestBody Route route) throws RouteException{
-		
-		 Route r = rService.addRoute(route);
-		 
-		 return new ResponseEntity<Route>(r,HttpStatus.OK);
-		
-	}
 	
-	@GetMapping("/book/{routeId}/{busId}/{ticketId}")
-	public ResponseEntity<Route> bookTicket(@PathVariable("routeId") Integer routeId ,@PathVariable("busId") Integer busId,@PathVariable("ticketId") Integer ticketId) throws RouteException, BusException, TicketException{
-		Route r = rService.ticketBook(routeId, busId, ticketId);
-		return new ResponseEntity<Route>(r,HttpStatus.OK);
-	}
 	
-	@PutMapping("/routes")
-	public ResponseEntity<Route> updateRoute(@RequestBody Route route) throws RouteException{
-		Route r = rService.updateRoute(route);
-		return new ResponseEntity<Route>(r,HttpStatus.OK);
-	}
-	
-	@DeleteMapping("/routes/{routeId}")
-	public ResponseEntity<Route> removeRoute(@PathVariable("routeId") Integer routeId) throws RouteException{
-		Route r = rService.removeRoute(routeId);
-		return new ResponseEntity<Route>(r,HttpStatus.OK);
-	}
-	
+
 	@GetMapping("/routes")
 	public ResponseEntity<List<Route>> viewRouteList() throws RouteException{
 		List<Route> routeList = rService.viewRouteList();

@@ -23,53 +23,22 @@ public class TravelsController {
 
 	@Autowired
 	private TravelsService tservice;
-	
-	@PostMapping("/add")
-	public ResponseEntity<Travels> addTravels(@RequestBody Travels travels) throws TravelsException {
-		
-		Travels t = tservice.addTravels(travels);
-		 
-		 return new ResponseEntity<Travels>(t,HttpStatus.OK);
-		
-	}
-	
-	
-	@PostMapping("/update")
-	public ResponseEntity<Travels> updateTravels(@RequestBody Travels travels) throws TravelsException {
-		
-		Travels t = tservice.updateTravels(travels);
-		 
-		 return new ResponseEntity<Travels>(t,HttpStatus.OK);
-		
-	}
-	
-	
-	@DeleteMapping("/remove/{id}")
-	public ResponseEntity<Travels> removeTravels(@PathVariable("id") Integer id) throws TravelsException {
-		
-		Travels t = tservice.removeTravels(id);
-		 
-		 return new ResponseEntity<Travels>(t,HttpStatus.OK);
-		
-	}
-	
+
 	@GetMapping("/search/{id}")
 	public ResponseEntity<Travels> searchTravels(@PathVariable("id") Integer id) throws TravelsException {
-		
+
 		Travels t = tservice.searchTravels(id);
-		 
-		 return new ResponseEntity<Travels>(t,HttpStatus.OK);
-		
+
+		return new ResponseEntity<Travels>(t, HttpStatus.OK);
+
 	}
-	
+
 	@GetMapping("/view")
 	public ResponseEntity<List<Travels>> viewTravels() throws TravelsException {
-		
-		 List<Travels> list=tservice.viewTravels();
-		 return new ResponseEntity<List<Travels>>(list,HttpStatus.OK);
-		
+
+		List<Travels> list = tservice.viewTravels();
+		return new ResponseEntity<List<Travels>>(list, HttpStatus.OK);
+
 	}
-	
-	
-	
+
 }

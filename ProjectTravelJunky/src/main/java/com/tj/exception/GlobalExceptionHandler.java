@@ -22,6 +22,33 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
 	}
 	
+	@ExceptionHandler(BookingException.class)
+	public ResponseEntity<MyErrorDetails> bookingExceptionHandler(BookingException me, WebRequest re) {
+		MyErrorDetails err = new MyErrorDetails();
+		err.setTimestamp(LocalDateTime.now());
+		err.setMessage(me.getMessage());
+		err.setDescription(re.getDescription(false));
+		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(TravelsException.class)
+	public ResponseEntity<MyErrorDetails> travelsExceptionHandler(TravelsException te,WebRequest req){
+		MyErrorDetails err=new MyErrorDetails();
+		err.setTimestamp(LocalDateTime.now());
+		err.setMessage(te.getMessage());
+		err.setDescription(req.getDescription(false));
+		return new ResponseEntity<MyErrorDetails>(err,HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(FeedbackException.class)
+	public ResponseEntity<MyErrorDetails> feedBackExceptionHandler(FeedbackException te,WebRequest req){
+		MyErrorDetails err=new MyErrorDetails();
+		err.setTimestamp(LocalDateTime.now());
+		err.setMessage(te.getMessage());
+		err.setDescription(req.getDescription(false));
+		return new ResponseEntity<MyErrorDetails>(err,HttpStatus.BAD_REQUEST);
+	}
+	
 	@ExceptionHandler(CustomerException.class)
 	public ResponseEntity<MyErrorDetails> customerExceptionHandler(CustomerException me, WebRequest re) {
 		MyErrorDetails err = new MyErrorDetails();
@@ -31,8 +58,63 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
 	}
 	
+	
+	@ExceptionHandler(HotelException.class)
+	public ResponseEntity<MyErrorDetails> hotelExceptionHandler(HotelException te,WebRequest req){
+		MyErrorDetails err=new MyErrorDetails();
+		err.setTimestamp(LocalDateTime.now());
+		err.setMessage(te.getMessage());
+		err.setDescription(req.getDescription(false));
+		return new ResponseEntity<MyErrorDetails>(err,HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(TicketException.class)
+	public ResponseEntity<MyErrorDetails> ticketsExceptionHandler(TicketException te,WebRequest req){
+		MyErrorDetails err=new MyErrorDetails();
+		err.setTimestamp(LocalDateTime.now());
+		err.setMessage(te.getMessage());
+		err.setDescription(req.getDescription(false));
+		return new ResponseEntity<MyErrorDetails>(err,HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(ReportException.class)
+	public ResponseEntity<MyErrorDetails> reportExceptionHandler(ReportException te,WebRequest req){
+		MyErrorDetails err=new MyErrorDetails();
+		err.setTimestamp(LocalDateTime.now());
+		err.setMessage(te.getMessage());
+		err.setDescription(req.getDescription(false));
+		return new ResponseEntity<MyErrorDetails>(err,HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(RouteException.class)
+	public ResponseEntity<MyErrorDetails> routeExceptionHandler(RouteException te,WebRequest req){
+		MyErrorDetails err=new MyErrorDetails();
+		err.setTimestamp(LocalDateTime.now());
+		err.setMessage(te.getMessage());
+		err.setDescription(req.getDescription(false));
+		return new ResponseEntity<MyErrorDetails>(err,HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(PackageException.class)
+	public ResponseEntity<MyErrorDetails> packageExceptionHandler(PackageException te,WebRequest req){
+		MyErrorDetails err=new MyErrorDetails();
+		err.setTimestamp(LocalDateTime.now());
+		err.setMessage(te.getMessage());
+		err.setDescription(req.getDescription(false));
+		return new ResponseEntity<MyErrorDetails>(err,HttpStatus.BAD_REQUEST);
+	}
+	
 	@ExceptionHandler(AdminException.class)
 	public ResponseEntity<MyErrorDetails> adminExceptionHandler(AdminException me, WebRequest re) {
+		MyErrorDetails err = new MyErrorDetails();
+		err.setTimestamp(LocalDateTime.now());
+		err.setMessage(me.getMessage());
+		err.setDescription(re.getDescription(false));
+		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(BusException.class)
+	public ResponseEntity<MyErrorDetails> busExceptionHandler(BusException me, WebRequest re) {
 		MyErrorDetails err = new MyErrorDetails();
 		err.setTimestamp(LocalDateTime.now());
 		err.setMessage(me.getMessage());

@@ -18,4 +18,6 @@ public interface BusService {
 	public Travels addTravelService(Integer busId,Integer travelsId) throws TravelsException,BusException;
 	
 	public Route addRouteServices(Integer busId, Integer routeId) throws BusException,RouteException;
+	
+	public Bus deleteBus(Integer busId) throws BusException;
 }
