@@ -9,15 +9,20 @@ import org.springframework.stereotype.Service;
 import com.tj.exception.BusException;
 import com.tj.exception.RouteException;
 import com.tj.exception.TicketException;
+import com.tj.model.Bus;
 import com.tj.model.Route;
-
+import com.tj.model.TicketDetails;
+import com.tj.repository.BusDao;
 import com.tj.repository.RouteDao;
+import com.tj.repository.TicketDetailsDAO;
 
 @Service
 public class RouteServiceImpl implements RouteService {
 
 	@Autowired
 	private RouteDao rDao;
+	private BusDao bDao;
+	private TicketDetailsDAO tDao;
 
 
 	@Override
@@ -33,15 +38,43 @@ public class RouteServiceImpl implements RouteService {
 	}
 
 	@Override
-	public Route updateRoute(Integer routeId, Integer busId, Integer tickedId)
-			throws RouteException, BusException, TicketException {
-		// TODO Auto-generated method stub
-		return null;
+	public Route updateRoute(Integer routeId, Integer busId, Integer tickedId) throws RouteException, BusException, TicketException {
+		Optional<Route> exsistingRoute = rDao.findById(routeId);
+		Optional<Bus> exsistingBus = bDao.findById(busId);
+		Optional<TicketDetails> exsistingTicket = tDao.findById(tickedId);
+
+		if(exsistingRoute.isPresent()) {
+			if(exsistingBus.isPresent()) {
+				if(exsistingTicket.isPresent()) {
+					Route route = exsistingRoute.get();
+					Bus bus = exsistingBus.get();
+					TicketDetails ticket = exsistingTicket.get();
+					route.setBus(bus);
+					ticket.setStatus("booked!!");
+					ticket.setRoute(route);
+					tDao.save(ticket);
+					return rDao.save(route);
+
+				}else {
+					throw new TicketException("ticket is not available!!!");
+				}
+
+
+
+			}else {
+				throw new BusException("No bus is available for this bus id "+busId);
+			}
+
+		}else {
+			throw new RouteException("This route is not available!!");
+		}
+
+
 	}
 
 	@Override
 	public Route removeRoute(Integer routeId) throws RouteException {
-		
+
 		Optional<Route> exsistingRoute=rDao.findById(routeId);
 		if (!exsistingRoute.isPresent()) {
 			throw new RouteException("This Route is not present in database to delete.");
@@ -52,22 +85,22 @@ public class RouteServiceImpl implements RouteService {
 
 	@Override
 	public Route searchRoute(Integer routeId) throws RouteException {
-		
+
 		Optional<Route> exsistingRoute = rDao.findById(routeId);
-		
+
 		if(!exsistingRoute.isPresent()) {
 			throw new RouteException("This route is not present!!");
 		}else {
 			return exsistingRoute.get();
 		}
-		
+
 	}
 
 	@Override
 	public List<Route> viewRouteList() throws RouteException {
-		
+
 		List<Route> exsistingRouteList = rDao.findAll();
-		
+
 		if(exsistingRouteList.size()==0) {
 			throw new RouteException("No route is present to travel!!");
 		}else {
