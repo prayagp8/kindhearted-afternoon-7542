@@ -20,7 +20,7 @@ public class ReportServiceImpl implements ReportService {
 	private ReportDao reportDao;
 
 	@Autowired
-	private AdminDao aDao;
+	private AdminDao adminDao;
 
 	@Override
 	public Report addReport(Report report) throws ReportException {
@@ -61,9 +61,9 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
-	public List<Report> viewReportByAdminId(Integer aid) throws AdminException, ReportException {
+	public List<Report> viewReportByAdminId(Integer adminId) throws AdminException, ReportException {
 
-		Optional<Admin> findedAdmin = aDao.findById(aid);
+		Optional<Admin> findedAdmin = adminDao.findById(adminId);
 
 		if (findedAdmin.isPresent()) {
 			List<Report> reports = findedAdmin.get().getReports();
@@ -71,11 +71,11 @@ public class ReportServiceImpl implements ReportService {
 			if (reports.size() > 0) {
 				return reports;
 			}
-			throw new ReportException("Reports Not found by Admin Id: " + aid);
+			throw new ReportException("Reports Not found by Admin Id: " + adminId);
 
 		}
 
-		throw new AdminException("Admin is not avalible with Id: " + aid);
+		throw new AdminException("Admin is not avalible with Id: " + adminId);
 
 	}
 
