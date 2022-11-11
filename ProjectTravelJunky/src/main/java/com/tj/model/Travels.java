@@ -18,9 +18,6 @@ public class Travels {
 	private String agentName;
 	private String address;
 	private String contact;
-
-	
-	
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private currentUserSession currenUserSession;
@@ -31,6 +28,9 @@ public class Travels {
 	}
 
 	
+	
+
+
 	public Travels(Integer travelsId, String travelsName, String agentName, String address, String contact,
 			currentUserSession currenUserSession) {
 		super();
@@ -41,6 +41,9 @@ public class Travels {
 		this.contact = contact;
 		this.currenUserSession = currenUserSession;
 	}
+
+
+
 
 
 	public currentUserSession getCurrenUserSession() {

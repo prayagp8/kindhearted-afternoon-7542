@@ -17,11 +17,9 @@ public class TravelsServiceImp implements TravelsService{
 
 	@Override
 	public Travels addTravels(Travels travels) throws TravelsException {
-		// TODO Auto-generated method stub
 		Optional<Travels> trav = tDao.findById(travels.getTravelsId());
 
 		if(trav.isPresent()) {
-
 			throw new TravelsException("Travel company is already added!!");
 		}else {
 			return tDao.save(trav.get());
@@ -29,33 +27,42 @@ public class TravelsServiceImp implements TravelsService{
 	}
 
 	@Override
-	public Travels updateTravels(Travels travels, Integer id) throws TravelsException {
-		// TODO Auto-generated method stub
-		Optional<Travels> trav = tDao.findById(travels.getTravelsId());
+	public Travels updateTravels(Travels travels) throws TravelsException {
 
-		if(trav.isPresent()) {
-			return tDao.save(travels);
-		}else {
-			throw new TravelsException("Travel company not exist !!");
-		}
+		Travels trav=tDao.findById(travels.getTravelsId())
+				.orElseThrow(()->new TravelsException("Travels not exists.."));
+		return tDao.save(travels);
 	}
 
 	@Override
 	public Travels removeTravels(Integer id) throws TravelsException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Travels trav=tDao.findById(id)
+				.orElseThrow(()->new TravelsException("Travels not exists.."));
+		
+		tDao.delete(trav);
+		return trav;
+		
 	}
 
 	@Override
 	public Travels searchTravels(Integer id) throws TravelsException {
-		// TODO Auto-generated method stub
-		return null;
+		Travels trav=tDao.findById(id)
+				.orElseThrow(()->new TravelsException("Travels not exists.."));
+		return trav;
 	}
 
 	@Override
 	public List<Travels> viewTravels() throws TravelsException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Travels> list=tDao.findAll();
+		
+		if(list.size()==0)
+		{
+			throw new TravelsException("Travels not found..");
+		}
+		
+		return list;
+		
 	}
 
 
