@@ -19,9 +19,6 @@ public class ReportServiceImpl implements ReportService {
 	@Autowired
 	private ReportDao reportDao;
 
-	@Autowired
-	private AdminDao adminDao;
-
 	@Override
 	public Report addReport(Report report) throws ReportException {
 		Report report2 = reportDao.save(report);
@@ -58,25 +55,6 @@ public class ReportServiceImpl implements ReportService {
 			throw new ReportException("No report exists.");
 		}
 		return reports;
-	}
-
-	@Override
-	public List<Report> viewReportByAdminId(Integer adminId) throws AdminException, ReportException {
-
-		Optional<Admin> findedAdmin = adminDao.findById(adminId);
-
-		if (findedAdmin.isPresent()) {
-			List<Report> reports = findedAdmin.get().getReports();
-
-			if (reports.size() > 0) {
-				return reports;
-			}
-			throw new ReportException("Reports Not found by Admin Id: " + adminId);
-
-		}
-
-		throw new AdminException("Admin is not avalible with Id: " + adminId);
-
-	}
+	}	
 
 }
