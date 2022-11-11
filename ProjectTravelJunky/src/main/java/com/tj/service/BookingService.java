@@ -11,4 +11,6 @@ public interface BookingService {
 	public Booking viewBooking(Integer bookingId)throws BookingException;
 	public List<Booking> viewAllBookings()throws BookingException;
 	
+	
+	
 }

@@ -30,11 +30,11 @@ public class Route {
 	private Double fare;
 
 	@JsonIgnore
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private TicketDetails ticketDetails;
 
-	@JsonIgnore
-	@OneToOne
+
+	@OneToOne(cascade = CascadeType.ALL)
 	private Bus bus;
 
 

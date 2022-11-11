@@ -25,8 +25,9 @@ public class BookingServiceImpl implements BookingService{
 	public Booking cancelBooking(Integer bookingId) throws BookingException {
 		Optional<Booking> bookingOptional= bookingDAO.findById(bookingId);
 		if(bookingOptional.isPresent()) {
-			bookingDAO.deleteById(bookingId);
 			Booking booking = bookingOptional.get();
+			bookingDAO.deleteById(bookingId);
+			
 			return booking;
 		}
 		else {

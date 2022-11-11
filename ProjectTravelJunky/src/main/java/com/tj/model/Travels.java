@@ -26,6 +26,8 @@ public class Travels {
 	private currentUserSession currenUserSession;
 	
 	
+	
+	
 	public Travels() {
 
 	}

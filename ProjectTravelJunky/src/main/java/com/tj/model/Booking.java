@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Booking {
@@ -19,6 +21,7 @@ public class Booking {
 	private String bookingTitle;
 	private LocalDate bookingDate;
 	
+	@JsonIgnore
 	@OneToOne
 	private Package packages;
 	

@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Bus {
 
@@ -18,18 +20,19 @@ public class Bus {
 	private String busNumber;
 	private Integer capacity;
 
-	@OneToOne
+	@JsonIgnore
+	@OneToOne(cascade = CascadeType.ALL)
 	private Route route;
 	
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	private currentUserSession currenUserSession;
-	
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Travels travels;
 	
 	public Bus() {
-//dummy
+
 	}
 
 	public Bus(Integer busId, String busType, String busNumber, Integer capacity, Route route) {
