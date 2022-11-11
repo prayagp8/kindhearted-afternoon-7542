@@ -48,6 +48,14 @@
 			<artifactId>springfox-boot-starter</artifactId>
 			<version>3.0.0</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.zalando/logbook-core -->
+		<dependency>
+			<groupId>org.zalando</groupId>
+			<artifactId>logbook-core</artifactId>
+			<version>2.14.0</version>
+			<scope>test</scope>
+		</dependency>
+
 
 	</dependencies>
 
