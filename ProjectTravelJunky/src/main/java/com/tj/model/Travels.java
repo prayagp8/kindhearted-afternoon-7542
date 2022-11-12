@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -16,7 +17,11 @@ public class Travels {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer travelsId;
+	
+	@Pattern(regexp = "^[A-Z][a-z]",message = "Name cannot start with number of symbol")
 	private String travelsName;
+	
+	@Pattern(regexp = "^[A-Z][a-z]",message = "Name cannot start with number of symbol")
 	private String agentName;
 	private String address;
 	private String contact;

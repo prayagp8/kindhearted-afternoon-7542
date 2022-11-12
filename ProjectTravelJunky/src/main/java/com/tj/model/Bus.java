@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -16,8 +18,14 @@ public class Bus {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer busId;
+	
+	@Pattern(regexp = "^[A-Z][a-z]",message = "Bus type cannot start with number of symbol")
 	private String busType;
+	
+	@NotNull
 	private String busNumber;
+	
+	@NotNull
 	private Integer capacity;
 
 	@JsonIgnore
