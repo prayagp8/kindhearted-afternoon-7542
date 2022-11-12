@@ -52,11 +52,13 @@ public class PackageServiceImpl implements PackageService{
 	public List<Package> viewAllPackage() throws PackageException {
 		List<Package> list= packageDAO.findAll();
 		if(list.size()==0) {
-			throw new PackageException();
+			throw new PackageException("no package is available!!");
 		}
 		else {
 			return list;
 		}
 	}
+	
+	
 
 }

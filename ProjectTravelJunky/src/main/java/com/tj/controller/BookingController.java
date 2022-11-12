@@ -41,7 +41,7 @@ public class BookingController {
 	
 	@GetMapping("/viewbooking/{id}")
 	public ResponseEntity<Booking> viewBooking(@PathVariable("id") Integer id) throws BookingException{
-		Booking booking= bookingService.cancelBooking(id);
+		Booking booking= bookingService.viewBooking(id);
 		return new ResponseEntity<Booking>(booking,HttpStatus.OK);
 	}
 	

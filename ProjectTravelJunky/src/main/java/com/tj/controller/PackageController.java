@@ -13,15 +13,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tj.exception.BookingException;
+import com.tj.exception.HotelException;
 import com.tj.exception.PackageException;
+import com.tj.exception.PaymentException;
+import com.tj.exception.TicketException;
 import com.tj.model.Booking;
 import com.tj.model.Package;
+import com.tj.model.PaymentDetails;
+import com.tj.model.TicketDetails;
+import com.tj.repository.PaymentDao;
 import com.tj.service.PackageService;
+import com.tj.service.PaymentService;
+import com.tj.service.TicketService;
 
 @RestController
 public class PackageController {
 	@Autowired
 	private PackageService packageService;
+	
+	@Autowired
+	private PaymentService paymentService;
+	
+	@Autowired
+	private TicketService ticketService;
 	
 	@PostMapping("/addpackage")
 	public ResponseEntity<Package> addPackage(@RequestBody Package package1) throws PackageException{
@@ -45,5 +59,44 @@ public class PackageController {
 	public ResponseEntity<List<Package>> viewAllPackage() throws PackageException{
 		List<Package> list = packageService.viewAllPackage();
 		return new ResponseEntity<List<Package>>(list,HttpStatus.OK);
+	}
+	
+	@PostMapping("/payment/{pId}/{bId}/{hId}")
+	public ResponseEntity<PaymentDetails> payment(@RequestBody PaymentDetails paymentD ,@PathVariable("pId") Integer packageId, @PathVariable("bId") Integer bookingId, @PathVariable("hId") Integer hotelId) throws PackageException, PaymentException, BookingException, HotelException {
+		PaymentDetails payment  = paymentService.payment(paymentD, packageId, bookingId, hotelId);
+		
+		return new ResponseEntity<PaymentDetails>(payment,HttpStatus.ACCEPTED);
+		
+		
+	}
+	
+	@PostMapping("ticket/{paymentId}")
+	public ResponseEntity<TicketDetails> addticket(@RequestBody TicketDetails ticket, @PathVariable("paymentId") Integer paymentId) throws TicketException, PaymentException{
+		
+		TicketDetails t = ticketService.addticket(ticket, paymentId);
+		
+		return new ResponseEntity<TicketDetails>(t,HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("/ticket")
+	public ResponseEntity<List<TicketDetails>> viewAllTicket() throws TicketException{
+		 List<TicketDetails> tList= ticketService.viewAllTicket();
+		 
+		 return new ResponseEntity<List<TicketDetails>>(tList,HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/ticket/{tId}")
+	public ResponseEntity<TicketDetails> deleteTicket(@PathVariable("tId") Integer ticketId) throws TicketException {
+		
+		TicketDetails t = ticketService.deleteTicket(ticketId);
+		
+		return new ResponseEntity<TicketDetails>(t,HttpStatus.OK);
+	}
+	
+	@GetMapping("/payement")
+	public ResponseEntity<List<PaymentDetails>> veiwAllPayments() throws PaymentException{
+		List<PaymentDetails> pList = paymentService.veiwAllPayments();
+		return new ResponseEntity<List<PaymentDetails>>(pList,HttpStatus.OK);
 	}
 }

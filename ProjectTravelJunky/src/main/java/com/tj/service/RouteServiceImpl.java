@@ -49,9 +49,10 @@ public class RouteServiceImpl implements RouteService {
 					Bus bus = exsistingBus.get();
 					TicketDetails ticket = exsistingTicket.get();
 //					route.setBus(bus);
-					ticket.setStatus("booked!!");
+					ticket.setStatus("booking confirmed!!");
 					ticket.setRoute(route);
-					tDao.save(ticket);
+					route.setTicketDetails(ticket);
+					
 					return rDao.save(route);
 
 				}else {

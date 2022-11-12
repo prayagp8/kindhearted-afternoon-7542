@@ -57,7 +57,7 @@ public class BookingServiceImpl implements BookingService {
 	public List<Booking> viewAllBookings() throws BookingException {
 		List<Booking> list = bookingDAO.findAll();
 		if (list.size() == 0) {
-			throw new BookingException();
+			throw new BookingException("no booking is available!!");
 		} else {
 			return list;
 		}

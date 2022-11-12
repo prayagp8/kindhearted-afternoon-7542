@@ -29,7 +29,7 @@ public class Route {
 	private String pickupPoint;
 	private Double fare;
 
-	@JsonIgnore
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	private TicketDetails ticketDetails;
 

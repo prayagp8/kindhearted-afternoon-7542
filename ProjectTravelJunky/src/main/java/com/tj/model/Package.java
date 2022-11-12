@@ -1,5 +1,6 @@
 package com.tj.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,23 +20,41 @@ public class Package {
 	private String packageType;
 	private Double packageCost;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Booking booking;
 	
-	@OneToOne
-	private Hotel hotel;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
+	private Hotel hotel;
+	@JsonIgnore
+	@OneToOne(cascade = CascadeType.ALL)
 	private TicketDetails ticketDetails;
+	
+	@JsonIgnore
+	@OneToOne(cascade = CascadeType.ALL)
+	private PaymentDetails payment;
 	
 	public Package() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Package(Integer packageId, String packageName, String packageDescription, String packageType,
-			Double packageCost, Booking booking, Hotel hotel, TicketDetails ticketDetails) {
+	
+
+	public PaymentDetails getPayment() {
+		return payment;
+	}
+
+
+
+	public void setPayment(PaymentDetails payment) {
+		this.payment = payment;
+	}
+
+
+
+	public Package(String packageName, String packageDescription, String packageType, Double packageCost,
+			Booking booking, Hotel hotel, TicketDetails ticketDetails, PaymentDetails payment) {
 		super();
-		this.packageId = packageId;
 		this.packageName = packageName;
 		this.packageDescription = packageDescription;
 		this.packageType = packageType;
@@ -43,7 +62,10 @@ public class Package {
 		this.booking = booking;
 		this.hotel = hotel;
 		this.ticketDetails = ticketDetails;
+		this.payment = payment;
 	}
+
+
 
 	public Integer getPackageId() {
 		return packageId;

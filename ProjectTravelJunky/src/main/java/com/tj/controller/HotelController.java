@@ -2,6 +2,7 @@ package com.tj.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,12 +13,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tj.exception.HotelException;
+import com.tj.exception.PackageException;
 import com.tj.model.Hotel;
 import com.tj.service.HotelService;
+import com.tj.model.Package;
 
 @RestController
 public class HotelController {
 
+	@Autowired
 	private HotelService hotelService;
 
 	@PostMapping("/hotels")
@@ -31,13 +35,22 @@ public class HotelController {
 	}
 
 	@GetMapping("/hotels/{hotelId}")
-	public ResponseEntity<Hotel> findByReportId(@PathVariable("hotelId") Integer hotelId) throws HotelException {
+	public ResponseEntity<Hotel> findByHotelId(@PathVariable("hotelId") Integer hotelId) throws HotelException {
 		return new ResponseEntity<Hotel>(hotelService.findByHotelId(hotelId), HttpStatus.OK);
 	}
 
 	@GetMapping("/hotels")
-	public ResponseEntity<List<Hotel>> viewAllReports() throws HotelException {
-		return new ResponseEntity<List<Hotel>>(hotelService.viewAllHotels(), HttpStatus.OK);
+	public ResponseEntity<List<Hotel>> viewAllHoltels() throws HotelException {
+		List<Hotel> hList = hotelService.viewAllHotels();
+		return new ResponseEntity<List<Hotel>>(hList,HttpStatus.OK);
+	}
+	
+	@GetMapping("/hotels/{hId}/{pId}")
+	public ResponseEntity<Package> addPackage(@PathVariable("hId") Integer hotelId, @PathVariable("pId") Integer packageId) throws HotelException, PackageException{
+		
+	         Package p = hotelService.addPackage(hotelId, packageId);
+	         
+	         return new ResponseEntity<Package>(p,HttpStatus.OK);
 	}
 
 }

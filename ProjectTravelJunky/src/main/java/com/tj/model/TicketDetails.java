@@ -1,10 +1,13 @@
 package com.tj.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class TicketDetails {
@@ -14,22 +17,23 @@ public class TicketDetails {
 	private Integer ticketId;
 	private String status;
 	
-	@OneToOne
+	@JsonIgnore
+	@OneToOne(cascade = CascadeType.ALL)
 	private Route route;
 	
-	@OneToOne
-	private Package packages;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	private PaymentDetails payment;
 	
 	public TicketDetails() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public TicketDetails(Integer ticketId, String status, Route route, Package packages) {
+	public TicketDetails(String status, Route route, PaymentDetails payment) {
 		super();
-		this.ticketId = ticketId;
 		this.status = status;
 		this.route = route;
-		this.packages = packages;
+		this.payment = payment;
 	}
 
 	public Integer getTicketId() {
@@ -56,11 +60,26 @@ public class TicketDetails {
 		this.route = route;
 	}
 
-	public Package getPackages() {
-		return packages;
+	public PaymentDetails getPayment() {
+		return payment;
 	}
 
-	public void setPackages(Package packages) {
-		this.packages = packages;
+	public void setPayment(PaymentDetails payment) {
+		this.payment = payment;
 	}
+
+	@Override
+	public String toString() {
+		return "TicketDetails [ticketId=" + ticketId + ", status=" + status + ", route=" + route + ", payment="
+				+ payment + "]";
+	}
+
+
+	
+	
+	
+	
+
+	
+	
 }

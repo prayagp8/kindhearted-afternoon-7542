@@ -1,10 +1,13 @@
 package com.tj.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Hotel {
@@ -18,17 +21,17 @@ public class Hotel {
 	private Double rent;
 	private String status;
 	
-	@OneToOne
+	@JsonIgnore
+	@OneToOne(cascade = CascadeType.ALL)
 	private Package packages;
 	
 	public Hotel() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Hotel(Integer hotelId, String hotelName, String hotelType, String hotelDescription, String address,
-			Double rent, String status, Package packages) {
+	public Hotel(String hotelName, String hotelType, String hotelDescription, String address, Double rent,
+			String status, Package packages) {
 		super();
-		this.hotelId = hotelId;
 		this.hotelName = hotelName;
 		this.hotelType = hotelType;
 		this.hotelDescription = hotelDescription;
@@ -102,5 +105,13 @@ public class Hotel {
 		this.packages = packages;
 	}
 
+	@Override
+	public String toString() {
+		return "Hotel [hotelId=" + hotelId + ", hotelName=" + hotelName + ", hotelType=" + hotelType
+				+ ", hotelDescription=" + hotelDescription + ", address=" + address + ", rent=" + rent + ", status="
+				+ status + ", packages=" + packages + "]";
+	}
+
+	
 	
 }
