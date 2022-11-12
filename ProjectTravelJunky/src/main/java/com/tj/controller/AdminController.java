@@ -76,6 +76,7 @@ public class AdminController {
 	@Autowired
 	private HotelService hotelService;
 
+	
 	/////////////////////////// Report Controller Part
 
 	@GetMapping("/report/reports")
@@ -107,6 +108,23 @@ public class AdminController {
 		return new ResponseEntity<Bus>(b, HttpStatus.OK);
 	}
 
+	@PutMapping("/bus/updatebus")
+	public ResponseEntity<Bus> updateBus(@Valid @RequestBody Bus bus) throws BusException {
+
+		Bus b = busService.updateBus(bus);
+		return new ResponseEntity<Bus>(b, HttpStatus.OK);
+
+	}
+	
+	@GetMapping("/bus/search/{busid}")
+	public ResponseEntity<Bus> searchBusByBusId(@PathVariable("busid") Integer busId) throws BusException {
+
+		Bus bus = busService.searchBusByid(busId);
+		return new ResponseEntity<Bus>(bus, HttpStatus.OK);
+	}
+	
+	
+	
 	@GetMapping("/bus/buses")
 	public ResponseEntity<List<Bus>> veiwAllBuses() throws BusException {
 		List<Bus> bList = busService.veiwAllBuses();
@@ -339,4 +357,8 @@ public class AdminController {
 	public ResponseEntity<Hotel> findByHotelId(@PathVariable("hotelId") Integer hotelId) throws HotelException {
 		return new ResponseEntity<Hotel>(hotelService.findByHotelId(hotelId), HttpStatus.OK);
 	}
+	
+
+	
+	
 }

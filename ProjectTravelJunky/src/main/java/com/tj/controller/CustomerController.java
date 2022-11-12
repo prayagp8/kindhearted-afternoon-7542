@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tj.exception.BookingException;
+import com.tj.exception.BusException;
 import com.tj.exception.CustomerException;
 import com.tj.exception.HotelException;
 import com.tj.exception.PackageException;
@@ -21,6 +22,7 @@ import com.tj.exception.PaymentException;
 import com.tj.exception.RouteException;
 import com.tj.exception.TicketException;
 import com.tj.exception.TravelsException;
+import com.tj.model.Bus;
 import com.tj.model.Customer;
 import com.tj.model.Hotel;
 import com.tj.model.Package;
@@ -196,5 +198,21 @@ public class CustomerController {
 	}
 	
 
+///////////////////////////Bus Controller Part
+	
+	@GetMapping("/bus/search/{busid}")
+	public ResponseEntity<Bus> searchBusByBusId(@PathVariable("busid") Integer busId) throws BusException {
+
+		Bus bus = busService.searchBusByid(busId);
+		return new ResponseEntity<Bus>(bus, HttpStatus.OK);
+	}
+	
+	
+	
+	@GetMapping("/bus/buses")
+	public ResponseEntity<List<Bus>> veiwAllBuses() throws BusException {
+		List<Bus> bList = busService.veiwAllBuses();
+		return new ResponseEntity<List<Bus>>(bList, HttpStatus.OK);
+	}
 
 }
