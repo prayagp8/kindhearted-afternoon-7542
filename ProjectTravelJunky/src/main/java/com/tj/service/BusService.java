@@ -13,6 +13,11 @@ public interface BusService {
 
 	public Bus addBus(Bus bus) throws BusException;
 	
+	public Bus searchBusByid(Integer busId) throws BusException;
+	
+	public Bus updateBus(Bus bus) throws BusException;
+	
+	
 	public List<Bus> veiwAllBuses() throws BusException;
 	
 	public Travels addTravelService(Integer busId,Integer travelsId) throws TravelsException,BusException;

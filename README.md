@@ -2,7 +2,12 @@
 # Travel Junky - An Online Trip Management System
 
 
-![Logo](https://i.ibb.co/ZNZ87Gt/TJGRADIENT.png)
+![Logo](https://i.ibb.co/M2TvhHG/TG.jpg)
+
+
+## About
+
+The backend of online trip management where the admin can log in to the system and can manage the features of the website. And the customer can also log in and perform activities such as view routes, hotels, and packages and can also book, cancel and print ticket details and provide feedback too.
 
 
 ## Authors
@@ -34,8 +39,6 @@
 - Provide/View Testimonials
 
 
-
-
 ## Tech Stack
 
 **Client:** Java, SpringBoot, JPA with Hibernate
@@ -45,25 +48,37 @@
 **Testing:** Postman, Swagger
 
 
-## API Reference (pending)
+##  Entity Relationship
+![Logo](https://i.ibb.co/TLTdYj2/ER.jpg)
 
-#### Get all items
+## Run Locally
 
-```http
-  GET /api/items
+Clone the project
+
+```bash
+  git clone https://github.com/prayagp8/kindhearted-afternoon-7542.git
 ```
 
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `api_key` | `string` | **Required**. Your API key |
+Go to the project resources
 
-#### Get item
 
-```http
-  GET /api/items/${id}
-```
+-  src/main/resources and change the MySQL credentials.
 
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `id`      | `string` | **Required**. Id of item to fetch |
 
+Run the main file
+
+- src/main/java/com/tj/ProjectTravelJunkyApplication.java 
+
+Start the server
+
+ - http://localhost:8888/swagger-ui/#/
+
+
+## Roles and Responsibilities
+- Project management done by [Prayag Patel](https://github.com/prayagp8).
+- Login, controller class management and overall bug fixes done by [Prayag Patel](https://github.com/prayagp8).
+- Admin, User and Customers related files and exceptions done by [Ranjeet Kumar](https://github.com/ranjeetmasaischool).
+- Booking, Package and Hotel related files and exceptions done by [Rajan Chauhan](https://github.com/rajanchauhan165).
+- Bus, Route and Travel related files and exceptions done by [Abhishek Das](https://github.com/abhidas0810).
+- Feedback, Report and Tickets related files and exceptions done by [Gautam Kumar](https://github.com/gautamprajapat8).
+- Readme.md done by [Rajan Chauhan](https://github.com/rajanchauhan165).

@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tj.exception.BusException;
+import com.tj.exception.ReportException;
 import com.tj.exception.RouteException;
 import com.tj.exception.TravelsException;
 import com.tj.model.Bus;
+import com.tj.model.Report;
 import com.tj.model.Route;
 import com.tj.model.Travels;
 import com.tj.repository.BusDao;
@@ -96,5 +98,25 @@ public class BusServiceImpl implements BusService {
 			throw new BusException("Bus Not Avalebale By Bus Id: " + busId);
 		}
 	}
+
+	@Override
+	public Bus searchBusByid(Integer busId) throws BusException {
+
+
+		Optional<Bus> opt = bDao.findById(busId);
+		if (opt == null) {
+			throw new BusException("Bus does not exists with Report Id : " + busId);
+		}
+		return opt.get();
+	}
+
+	@Override
+	public Bus updateBus(Bus bus) throws BusException {
+		Bus b=bDao.findById(bus.getBusId())
+				.orElseThrow(()->new BusException("Bus not exists.."));
+		return bDao.save(b);
+	}
+
+	
 
 }
