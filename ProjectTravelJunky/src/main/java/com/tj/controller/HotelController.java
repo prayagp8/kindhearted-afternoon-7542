@@ -2,12 +2,12 @@ package com.tj.controller;
 
 import java.util.List;
 
-<<<<<<< HEAD
+
 import org.springframework.beans.factory.annotation.Autowired;
-=======
+
 import javax.validation.Valid;
 
->>>>>>> 5ec7d91eceae3d076303784df4f3bb4f4b0232b5
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;

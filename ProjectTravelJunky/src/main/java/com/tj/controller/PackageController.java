@@ -96,7 +96,7 @@ public class PackageController {
 		return new ResponseEntity<TicketDetails>(t,HttpStatus.OK);
 	}
 	
-	@GetMapping("/payement")
+	@GetMapping("/payment")
 	public ResponseEntity<List<PaymentDetails>> veiwAllPayments() throws PaymentException{
 		List<PaymentDetails> pList = paymentService.veiwAllPayments();
 		return new ResponseEntity<List<PaymentDetails>>(pList,HttpStatus.OK);
