@@ -19,7 +19,7 @@ public class Bus {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer busId;
 	
-	@Pattern(regexp = "^[A-Z][a-z]",message = "Bus type cannot start with number of symbol")
+	
 	private String busType;
 	
 	@NotNull

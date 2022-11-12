@@ -114,7 +114,7 @@ public class BusServiceImpl implements BusService {
 	public Bus updateBus(Bus bus) throws BusException {
 		Bus b=bDao.findById(bus.getBusId())
 				.orElseThrow(()->new BusException("Bus not exists.."));
-		return bDao.save(b);
+		return bDao.save(bus);
 	}
 
 	
