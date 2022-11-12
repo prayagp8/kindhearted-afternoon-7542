@@ -18,19 +18,30 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tj.exception.BusException;
 import com.tj.exception.CustomerException;
+import com.tj.exception.HotelException;
+import com.tj.exception.PackageException;
+import com.tj.exception.PaymentException;
 import com.tj.exception.ReportException;
 import com.tj.exception.RouteException;
 import com.tj.exception.TicketException;
 import com.tj.exception.TravelsException;
 import com.tj.model.Bus;
 import com.tj.model.Customer;
+import com.tj.model.Hotel;
+import com.tj.model.Package;
+import com.tj.model.PaymentDetails;
 import com.tj.model.Report;
 import com.tj.model.Route;
+import com.tj.model.TicketDetails;
 import com.tj.model.Travels;
 import com.tj.service.BusService;
 import com.tj.service.CustomerService;
+import com.tj.service.HotelService;
+import com.tj.service.PackageService;
+import com.tj.service.PaymentService;
 import com.tj.service.ReportService;
 import com.tj.service.RouteService;
+import com.tj.service.TicketService;
 import com.tj.service.TravelsService;
 
 @RestController
@@ -53,6 +64,17 @@ public class AdminController {
 
 	@Autowired
 	private RouteService rService;
+	
+	@Autowired
+	private PackageService packageService;
+	
+	@Autowired
+	private PaymentService paymentService;
+	
+	@Autowired
+	private TicketService ticketService;
+	@Autowired
+	private HotelService hotelService;
 
 	/////////////////////////// Report Controller Part
 
@@ -150,6 +172,7 @@ public class AdminController {
 		return new ResponseEntity<List<Travels>>(list, HttpStatus.OK);
 
 	}
+	
 
 ///////////////////////////Route Controller Part
 
@@ -169,8 +192,9 @@ public class AdminController {
 
 	}
 
+//	this function is to change status ticket (booking -->booking confirmed)
 	@GetMapping("/route/book/{routeId}/{busId}/{ticketId}")
-	public ResponseEntity<Route> bookTicket(@PathVariable("routeId") Integer routeId,
+	public ResponseEntity<Route> confirmBooking(@PathVariable("routeId") Integer routeId,
 			@PathVariable("busId") Integer busId, @PathVariable("ticketId") Integer ticketId)
 			throws RouteException, BusException, TicketException {
 		Route r = rService.ticketBook(routeId, busId, ticketId);
@@ -240,5 +264,79 @@ public class AdminController {
 		return new ResponseEntity<Customer>(customers,HttpStatus.OK);
 		
 	}
+	
+	
+	///////////////package controller////////////////
+	
+	@PostMapping("/package/addpackage")
+	public ResponseEntity<Package> addPackage(@Valid @RequestBody Package package1) throws PackageException{
+		Package package2=packageService.addPackage(package1);
+		return new ResponseEntity<Package>(package2, HttpStatus.CREATED);
+	}
+	
+	@DeleteMapping("/package/deletepackage/{id}")
+	public ResponseEntity<Package> deletePackage(@PathVariable("id") Integer id) throws PackageException{
+		Package package1= packageService.deletePackage(id);
+		return new ResponseEntity<Package>(package1,HttpStatus.OK);
+	}
+	
+	@GetMapping("/package/allpackage")
+	public ResponseEntity<List<Package>> viewAllPackage() throws PackageException{
+		List<Package> list = packageService.viewAllPackage();
+		return new ResponseEntity<List<Package>>(list,HttpStatus.OK);
+	}
+	
+	
+	
+	
+///////////////ticket controller////////////////
+	
 
+	@GetMapping("ticket/tickets")
+	public ResponseEntity<List<TicketDetails>> viewAllTicket() throws TicketException{
+		 List<TicketDetails> tList= ticketService.viewAllTicket();
+		 
+		 return new ResponseEntity<List<TicketDetails>>(tList,HttpStatus.OK);
+	}
+	
+	
+///////////////payment controller////////////////
+	@GetMapping("payment/payments")
+	public ResponseEntity<List<PaymentDetails>> veiwAllPayments() throws PaymentException{
+		List<PaymentDetails> pList = paymentService.veiwAllPayments();
+		return new ResponseEntity<List<PaymentDetails>>(pList,HttpStatus.OK);
+	}
+	
+	
+	
+///////////////hotel controller////////////////
+	
+	@GetMapping("/hotels")
+	public ResponseEntity<List<Hotel>> viewAllHoltels() throws HotelException {
+		List<Hotel> hList = hotelService.viewAllHotels();
+		return new ResponseEntity<List<Hotel>>(hList,HttpStatus.OK);
+	}
+	
+	@GetMapping("/hotels/{hId}/{pId}")
+	public ResponseEntity<Package> addPackage(@PathVariable("hId") Integer hotelId, @PathVariable("pId") Integer packageId) throws HotelException, PackageException{
+		
+	         Package p = hotelService.addPackage(hotelId, packageId);
+	         
+	         return new ResponseEntity<Package>(p,HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/hotels/{hotelId}")
+	public ResponseEntity<Hotel> deleteHotel(@PathVariable("hotelId") Integer hotelId) throws HotelException {
+		return new ResponseEntity<Hotel>(hotelService.deleteHotel(hotelId), HttpStatus.OK);
+	}
+	
+	@PostMapping("/hotels")
+	public ResponseEntity<Hotel> addHotel(@Valid @RequestBody Hotel hotel) throws HotelException {
+		return new ResponseEntity<Hotel>(hotelService.addHotel(hotel), HttpStatus.ACCEPTED);
+	}
+	
+	@GetMapping("/hotels/{hotelId}")
+	public ResponseEntity<Hotel> findByHotelId(@PathVariable("hotelId") Integer hotelId) throws HotelException {
+		return new ResponseEntity<Hotel>(hotelService.findByHotelId(hotelId), HttpStatus.OK);
+	}
 }
