@@ -101,12 +101,6 @@ public class Admin {
 		this.reports = reports;
 	}
 
-	@Override
-	public String toString() {
-		return "Admin [adminId=" + adminId + ", adminName=" + adminName + ", password=" + password + ", email=" + email
-				+ ", mobile=" + mobile + "]";
-	}
-
 	
 
 }

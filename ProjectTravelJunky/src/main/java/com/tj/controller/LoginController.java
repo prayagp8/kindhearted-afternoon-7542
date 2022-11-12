@@ -22,29 +22,9 @@ public class LoginController {
 		@Autowired
 		private AdminLoginServiceImpl adminLogInServiceImpl;
 
-		// for user login
-		@PostMapping("/userlogin")
-		public String loginCustomerr(@Valid @RequestBody LoginDTO customerDTO) throws Exception {
-			return customerLoginServiceImpl.logIntoAccount(customerDTO);
-		}
+	
 
-		// for user logout
-		@PostMapping("/userlogout")
-		public String logOutCustomerr(@RequestParam(required = false) String key) throws LoginException {
-			return customerLoginServiceImpl.logOutFromAccount(key);
-		}
-
-		// for admin login
-		@PostMapping("/adminlogin")
-		public String logInAdmin(@Valid @RequestBody LoginDTO adminDTO) throws LoginException {
-			return adminLogInServiceImpl.logIntoAccount(adminDTO);
-		}
-
-		// for admin logout
-		@PostMapping("/adminlogout")
-		public String logOutAdmin(@RequestParam(required = false) String key) throws LoginException {
-			return adminLogInServiceImpl.logOutFromAccount(key);
-		}
+		
 
 
 	}

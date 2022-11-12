@@ -14,28 +14,41 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tj.exception.AdminException;
+import com.tj.exception.BookingException;
 import com.tj.exception.BusException;
 import com.tj.exception.CustomerException;
+import com.tj.exception.FeedbackException;
 import com.tj.exception.HotelException;
+import com.tj.exception.LoginException;
 import com.tj.exception.PackageException;
 import com.tj.exception.PaymentException;
 import com.tj.exception.ReportException;
 import com.tj.exception.RouteException;
 import com.tj.exception.TicketException;
 import com.tj.exception.TravelsException;
+import com.tj.model.Admin;
+import com.tj.model.Booking;
 import com.tj.model.Bus;
 import com.tj.model.Customer;
+import com.tj.model.Feedback;
 import com.tj.model.Hotel;
+import com.tj.model.LoginDTO;
 import com.tj.model.Package;
 import com.tj.model.PaymentDetails;
 import com.tj.model.Report;
 import com.tj.model.Route;
 import com.tj.model.TicketDetails;
 import com.tj.model.Travels;
+import com.tj.service.AdminLoginServiceImpl;
+import com.tj.service.AdminService;
+import com.tj.service.BookingService;
 import com.tj.service.BusService;
 import com.tj.service.CustomerService;
+import com.tj.service.FeedbackService;
 import com.tj.service.HotelService;
 import com.tj.service.PackageService;
 import com.tj.service.PaymentService;
@@ -48,11 +61,19 @@ import com.tj.service.TravelsService;
 @RequestMapping("/admin")
 public class AdminController {
 
-	
-	
+	@Autowired
+	private AdminLoginServiceImpl adminLogInServiceImpl;
+
+	@Autowired
+	private BookingService bookingService;
+
+	@Autowired
+	private FeedbackService feedbackService;
+
+
 	@Autowired
 	private CustomerService cService;
-	
+
 	@Autowired
 	private ReportService reportService;
 
@@ -64,17 +85,43 @@ public class AdminController {
 
 	@Autowired
 	private RouteService rService;
-	
+
 	@Autowired
 	private PackageService packageService;
-	
+
 	@Autowired
 	private PaymentService paymentService;
-	
+
 	@Autowired
 	private TicketService ticketService;
 	@Autowired
 	private HotelService hotelService;
+	
+	@Autowired
+	private AdminService aService;
+
+
+
+	// for admin login
+	
+	@PostMapping("/adminlogin")
+	public String logInAdmin(@Valid @RequestBody LoginDTO adminDTO) throws LoginException {
+		return adminLogInServiceImpl.logIntoAccount(adminDTO);
+	}
+
+	// for admin logout
+	
+	@PostMapping("/adminlogout")
+	public String logOutAdmin(@RequestParam(required = false) String key) throws LoginException {
+		return adminLogInServiceImpl.logOutFromAccount(key);
+	}
+	
+	@PostMapping("/admin")
+	public ResponseEntity<Admin> addAdmin(@RequestBody Admin admin) throws AdminException {
+		
+		return new ResponseEntity<Admin>(aService.addAdmin(admin),HttpStatus.ACCEPTED);
+	}
+
 
 	/////////////////////////// Report Controller Part
 
@@ -97,9 +144,9 @@ public class AdminController {
 		return new ResponseEntity<Report>(reportService.findByReportId(reportId), HttpStatus.OK);
 	}
 
-	
 
-///////////////////////////Bus Controller Part
+
+	///////////////////////////Bus Controller Part
 
 	@PostMapping("/bus/buses")
 	public ResponseEntity<Bus> addBus(@Valid @RequestBody Bus bus) throws BusException {
@@ -120,7 +167,7 @@ public class AdminController {
 		return new ResponseEntity<Bus>(bus, HttpStatus.OK);
 	}
 
-///////////////////////////Travel Controller Part
+	///////////////////////////Travel Controller Part
 	@GetMapping("/travel/addtravels/{busId}/{travelId}")
 	public ResponseEntity<Travels> addTravelService(@PathVariable("busId") Integer busId,
 			@PathVariable("travelId") Integer travelId) throws TravelsException, BusException {
@@ -172,9 +219,9 @@ public class AdminController {
 		return new ResponseEntity<List<Travels>>(list, HttpStatus.OK);
 
 	}
-	
 
-///////////////////////////Route Controller Part
+
+	///////////////////////////Route Controller Part
 
 	@GetMapping("/route/addroute/{busId}/{routeId}")
 	public ResponseEntity<Route> addRouteServices(@PathVariable("busId") Integer busId,
@@ -192,11 +239,11 @@ public class AdminController {
 
 	}
 
-//	this function is to change status ticket (booking -->booking confirmed)
+	//	this function is to change status ticket (booking -->booking confirmed)
 	@GetMapping("/route/book/{routeId}/{busId}/{ticketId}")
 	public ResponseEntity<Route> confirmBooking(@PathVariable("routeId") Integer routeId,
 			@PathVariable("busId") Integer busId, @PathVariable("ticketId") Integer ticketId)
-			throws RouteException, BusException, TicketException {
+					throws RouteException, BusException, TicketException {
 		Route r = rService.ticketBook(routeId, busId, ticketId);
 		return new ResponseEntity<Route>(r, HttpStatus.OK);
 	}
@@ -212,131 +259,183 @@ public class AdminController {
 		Route r = rService.removeRoute(routeId);
 		return new ResponseEntity<Route>(r, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/routes")
 	public ResponseEntity<List<Route>> viewRouteList() throws RouteException{
 		List<Route> routeList = rService.viewRouteList();
 		return new ResponseEntity<List<Route>>(routeList,HttpStatus.OK);
-		
+
 	}
-	
+
 	@GetMapping("/routesbyid")
 	public ResponseEntity<Route> searchRoute(Integer routeId) throws RouteException{
-		
+
 		Route r = rService.searchRoute(routeId);
 		return new ResponseEntity<Route>(r,HttpStatus.OK);
 	}
 
-	
-///////////////////////////Customer Controller Part
-	
+
+	///////////////////////////Customer Controller Part
+
 	@GetMapping("/customers")
 	public ResponseEntity<java.util.List<Customer>> getAllCustomer() throws CustomerException{
-		
+
 		java.util.List<Customer> customers=cService.allCustomer();
-		
+
 		return new ResponseEntity<java.util.List<Customer>>(customers,HttpStatus.OK);
-		
+
 	}
 	@GetMapping("/customers/{id}")
 	public ResponseEntity<Customer> getCustomerById(@PathVariable("id") Integer id) throws CustomerException{
-		
+
 		Customer customers=cService.viewCustomer(id);
-		
+
 		return new ResponseEntity<Customer>(customers,HttpStatus.OK);
-		
+
 	}
-	
+
 	@DeleteMapping("/customers/{id}")
 	public ResponseEntity<Customer> deleteCustomerById(@PathVariable("id") Integer id) throws CustomerException{
-		
+
 		Customer customers=cService.deleteCustomerById(id);
-		
+
 		return new ResponseEntity<Customer>(customers,HttpStatus.OK);
-		
+
 	}
-	
+
 	@DeleteMapping("/customers")
 	public ResponseEntity<Customer> deleteCustomerByCustomer(@Valid @RequestBody Customer customer) throws CustomerException{
-		
+
 		Customer customers=cService.deleteCustomer(customer);
-		
+
 		return new ResponseEntity<Customer>(customers,HttpStatus.OK);
-		
+
 	}
-	
-	
+
+
 	///////////////package controller////////////////
-	
+
 	@PostMapping("/package/addpackage")
 	public ResponseEntity<Package> addPackage(@Valid @RequestBody Package package1) throws PackageException{
 		Package package2=packageService.addPackage(package1);
 		return new ResponseEntity<Package>(package2, HttpStatus.CREATED);
 	}
-	
+
 	@DeleteMapping("/package/deletepackage/{id}")
 	public ResponseEntity<Package> deletePackage(@PathVariable("id") Integer id) throws PackageException{
 		Package package1= packageService.deletePackage(id);
 		return new ResponseEntity<Package>(package1,HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/package/allpackage")
 	public ResponseEntity<List<Package>> viewAllPackage() throws PackageException{
 		List<Package> list = packageService.viewAllPackage();
 		return new ResponseEntity<List<Package>>(list,HttpStatus.OK);
 	}
-	
-	
-	
-	
-///////////////ticket controller////////////////
-	
+
+
+
+
+	///////////////ticket controller////////////////
+
 
 	@GetMapping("ticket/tickets")
 	public ResponseEntity<List<TicketDetails>> viewAllTicket() throws TicketException{
-		 List<TicketDetails> tList= ticketService.viewAllTicket();
-		 
-		 return new ResponseEntity<List<TicketDetails>>(tList,HttpStatus.OK);
+		List<TicketDetails> tList= ticketService.viewAllTicket();
+
+		return new ResponseEntity<List<TicketDetails>>(tList,HttpStatus.OK);
 	}
-	
-	
-///////////////payment controller////////////////
+
+
+	///////////////payment controller////////////////
 	@GetMapping("payment/payments")
 	public ResponseEntity<List<PaymentDetails>> veiwAllPayments() throws PaymentException{
 		List<PaymentDetails> pList = paymentService.veiwAllPayments();
 		return new ResponseEntity<List<PaymentDetails>>(pList,HttpStatus.OK);
 	}
-	
-	
-	
-///////////////hotel controller////////////////
-	
+
+
+
+	///////////////hotel controller////////////////
+
 	@GetMapping("/hotels")
 	public ResponseEntity<List<Hotel>> viewAllHoltels() throws HotelException {
 		List<Hotel> hList = hotelService.viewAllHotels();
 		return new ResponseEntity<List<Hotel>>(hList,HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/hotels/{hId}/{pId}")
 	public ResponseEntity<Package> addPackage(@PathVariable("hId") Integer hotelId, @PathVariable("pId") Integer packageId) throws HotelException, PackageException{
-		
-	         Package p = hotelService.addPackage(hotelId, packageId);
-	         
-	         return new ResponseEntity<Package>(p,HttpStatus.OK);
+
+		Package p = hotelService.addPackage(hotelId, packageId);
+
+		return new ResponseEntity<Package>(p,HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/hotels/{hotelId}")
 	public ResponseEntity<Hotel> deleteHotel(@PathVariable("hotelId") Integer hotelId) throws HotelException {
 		return new ResponseEntity<Hotel>(hotelService.deleteHotel(hotelId), HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/hotels")
 	public ResponseEntity<Hotel> addHotel(@Valid @RequestBody Hotel hotel) throws HotelException {
 		return new ResponseEntity<Hotel>(hotelService.addHotel(hotel), HttpStatus.ACCEPTED);
 	}
-	
+
 	@GetMapping("/hotels/{hotelId}")
 	public ResponseEntity<Hotel> findByHotelId(@PathVariable("hotelId") Integer hotelId) throws HotelException {
 		return new ResponseEntity<Hotel>(hotelService.findByHotelId(hotelId), HttpStatus.OK);
 	}
+
+
+
+	///////////////////////////feedback Controller Part
+
+	@GetMapping("/feedbacks")
+	public ResponseEntity<List<Feedback>> viewAllFeedbacks() throws FeedbackException {
+		return new ResponseEntity<List<Feedback>>(feedbackService.viewAllFeedbacks(), HttpStatus.OK);
+	}
+
+	@GetMapping("/feedbackcustomer/{customerId}")
+	public ResponseEntity<List<Feedback>> findByCustomerId(@PathVariable("customerId") Integer customerId)
+			throws FeedbackException, CustomerException {
+
+		List<Feedback> feedBacks = feedbackService.findByCustomerId(customerId);
+
+		return new ResponseEntity<List<Feedback>>(feedBacks, HttpStatus.OK);
+
+	}
+
+	@GetMapping("/feedbacks/{feedbackId}")
+	public ResponseEntity<Feedback> findByFeeedbackId(@PathVariable("feedbackId") Integer feedbackId)
+			throws FeedbackException {
+		return new ResponseEntity<Feedback>(feedbackService.findByFeeedbackId(feedbackId), HttpStatus.OK);
+	}
+
+
+
+	///////////////////////////booking Controller Part
+
+	@DeleteMapping("/cancelbooking/{id}")
+	public ResponseEntity<Booking> cancelBooking(@PathVariable("id") Integer id) throws BookingException{
+		Booking booking= bookingService.cancelBooking(id);
+		return new ResponseEntity<Booking>(booking,HttpStatus.OK);
+	}
+
+
+	@GetMapping("/viewbooking/{id}")
+	public ResponseEntity<Booking> viewBooking(@PathVariable("id") Integer id) throws BookingException{
+		Booking booking= bookingService.viewBooking(id);
+		return new ResponseEntity<Booking>(booking,HttpStatus.OK);
+	}
+
+	@GetMapping("/allBookings")
+	public ResponseEntity<List<Booking>> viewAllBooking() throws BookingException{
+		List<Booking> list = bookingService.viewAllBookings();
+		return new ResponseEntity<List<Booking>>(list,HttpStatus.OK);
+	}
+
+
+
+
 }

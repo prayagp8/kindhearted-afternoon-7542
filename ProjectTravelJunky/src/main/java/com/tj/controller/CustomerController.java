@@ -11,25 +11,34 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tj.exception.BookingException;
 import com.tj.exception.CustomerException;
+import com.tj.exception.FeedbackException;
 import com.tj.exception.HotelException;
+import com.tj.exception.LoginException;
 import com.tj.exception.PackageException;
 import com.tj.exception.PaymentException;
 import com.tj.exception.RouteException;
 import com.tj.exception.TicketException;
 import com.tj.exception.TravelsException;
+import com.tj.model.Booking;
 import com.tj.model.Customer;
+import com.tj.model.Feedback;
 import com.tj.model.Hotel;
+import com.tj.model.LoginDTO;
 import com.tj.model.Package;
 import com.tj.model.PaymentDetails;
 import com.tj.model.Route;
 import com.tj.model.TicketDetails;
 import com.tj.model.Travels;
+import com.tj.service.BookingService;
 import com.tj.service.BusService;
+import com.tj.service.CustomerLoginServiceImpl;
 import com.tj.service.CustomerService;
+import com.tj.service.FeedbackService;
 import com.tj.service.HotelService;
 import com.tj.service.PackageService;
 import com.tj.service.PaymentService;
@@ -45,6 +54,8 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
+	@Autowired
+	private FeedbackService feedbackService;
 
 	@Autowired
 	private HotelService hotelService;
@@ -72,6 +83,29 @@ public class CustomerController {
 	
 	@Autowired
 	private TicketService ticketService;
+	
+	
+	@Autowired
+	private BookingService bookingService;
+	
+	@Autowired
+	private CustomerLoginServiceImpl customerLoginServiceImpl;
+	
+	
+	
+	// for user login
+	@PostMapping("/userlogin")
+	public String loginCustomerr(@Valid @RequestBody LoginDTO customerDTO) throws Exception {
+		return customerLoginServiceImpl.logIntoAccount(customerDTO);
+	}
+
+	// for user logout
+	@PostMapping("/userlogout")
+	public String logOutCustomerr(@RequestParam(required = false) String key) throws LoginException {
+		return customerLoginServiceImpl.logOutFromAccount(key);
+	}
+	
+
 
 ///////////////////////////Customer Controller Part
 
@@ -194,6 +228,52 @@ public class CustomerController {
 	public ResponseEntity<Hotel> findByHotelId(@PathVariable("hotelId") Integer hotelId) throws HotelException {
 		return new ResponseEntity<Hotel>(hotelService.findByHotelId(hotelId), HttpStatus.OK);
 	}
+	
+	
+///////////////////////////feedback Controller Part
+	
+	@GetMapping("/feedbackcustomer/{customerId}")
+	public ResponseEntity<List<Feedback>> findByCustomerId(@PathVariable("customerId") Integer customerId)
+			throws FeedbackException, CustomerException {
+
+		List<Feedback> feedBacks = feedbackService.findByCustomerId(customerId);
+
+		return new ResponseEntity<List<Feedback>>(feedBacks, HttpStatus.OK);
+
+	}
+	
+	@GetMapping("/feedbacks")
+	public ResponseEntity<List<Feedback>> viewAllFeedbacks() throws FeedbackException {
+		return new ResponseEntity<List<Feedback>>(feedbackService.viewAllFeedbacks(), HttpStatus.OK);
+	}
+	
+	@PostMapping("/feedbacks/{customerId}")
+	public ResponseEntity<Feedback> addFeedback(@Valid @RequestBody Feedback feedback,
+			@PathVariable("customerId") Integer customerId) throws FeedbackException, CustomerException {
+
+		return new ResponseEntity<Feedback>(feedbackService.addFeedback(feedback, customerId), HttpStatus.ACCEPTED);
+	}
+	
+///////////////////////////booking Controller Part
+	
+	@PostMapping("/makebooking")
+	public ResponseEntity<Booking> makeBooking(@Valid @RequestBody Booking booking) throws BookingException{
+		Booking newBooking=bookingService.makeBooking(booking);
+		return new ResponseEntity<Booking>(newBooking, HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/viewbooking/{id}")
+	public ResponseEntity<Booking> viewBooking(@PathVariable("id") Integer id) throws BookingException{
+		Booking booking= bookingService.viewBooking(id);
+		return new ResponseEntity<Booking>(booking,HttpStatus.OK);
+	}
+	
+	@PostMapping("/addpackage/{bid}/{pid}")
+	public ResponseEntity<Package> addPackage(@PathVariable("bid")Integer bid,@PathVariable("pid")Integer pid) throws PackageException, BookingException{
+		Package package2=bookingService.addPackage(bid, pid);
+		return new ResponseEntity<Package>(package2, HttpStatus.CREATED);
+	}
+	
 	
 
 
