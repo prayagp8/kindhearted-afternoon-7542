@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -21,7 +22,10 @@ public class Route {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer routeId;
 	
+	@NotNull
 	private String routeFrom;
+	
+	@NotNull
 	private String routeTo;
 	private LocalDateTime departureTime;
 	private LocalDateTime arrivalTime;

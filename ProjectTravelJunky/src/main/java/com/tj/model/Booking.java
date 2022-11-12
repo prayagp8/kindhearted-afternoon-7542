@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -16,8 +17,12 @@ public class Booking {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer bookingId;
+	
+	@Pattern(regexp = "^[A-Z][a-z]",message = "Booking type cannot start with number of symbol")
 	private String bookingType;
 	private String description;
+	
+	@Pattern(regexp = "^[A-Z][a-z]",message = "Title cannot start with number of symbol")
 	private String bookingTitle;
 	private LocalDate bookingDate;
 	

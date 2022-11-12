@@ -2,6 +2,8 @@ package com.tj.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +26,7 @@ public class ReportController {
 	private ReportService reportService;
 
 	@PostMapping("/reports")
-	public ResponseEntity<Report> addReport(@RequestBody Report report) throws ReportException {
+	public ResponseEntity<Report> addReport(@Valid @RequestBody Report report) throws ReportException {
 		return new ResponseEntity<Report>(reportService.addReport(report), HttpStatus.ACCEPTED);
 	}
 

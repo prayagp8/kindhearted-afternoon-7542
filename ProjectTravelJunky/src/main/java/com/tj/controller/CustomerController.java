@@ -25,6 +25,8 @@ import com.tj.service.TravelsService;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
@@ -41,7 +43,7 @@ public class CustomerController {
 ///////////////////////////Customer Controller Part
 
 	@PostMapping("/customers")
-	public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) throws CustomerException {
+	public ResponseEntity<Customer> createCustomer(@Valid @RequestBody Customer customer) throws CustomerException {
 
 		Customer c = cService.createCustomer(customer);
 
@@ -50,7 +52,7 @@ public class CustomerController {
 	}
 
 	@PutMapping("/customers/{key}")
-	public ResponseEntity<Customer> updateCustomerDetailsHandler(@RequestBody Customer costumer,
+	public ResponseEntity<Customer> updateCustomerDetailsHandler(@Valid @RequestBody Customer costumer,
 			@PathVariable("key") String key) throws CustomerException {
 
 		Customer updateCu = cService.updateCustomer(costumer, key);

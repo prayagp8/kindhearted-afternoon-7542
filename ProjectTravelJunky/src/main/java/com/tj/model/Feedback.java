@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.ManyToAny;
 
@@ -22,6 +23,8 @@ public class Feedback {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer feedbackId;
 	private String feedback;
+	
+	@NotNull
 	private Integer rating;
 	private LocalDate submitDate;
 	

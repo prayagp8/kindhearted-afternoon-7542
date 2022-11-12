@@ -2,6 +2,8 @@ package com.tj.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +26,7 @@ public class PackageController {
 	private PackageService packageService;
 	
 	@PostMapping("/addpackage")
-	public ResponseEntity<Package> addPackage(@RequestBody Package package1) throws PackageException{
+	public ResponseEntity<Package> addPackage(@Valid @RequestBody Package package1) throws PackageException{
 		Package package2=packageService.addPackage(package1);
 		return new ResponseEntity<Package>(package2, HttpStatus.CREATED);
 	}

@@ -1,5 +1,7 @@
 package com.tj.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +24,7 @@ public class LoginController {
 
 		// for user login
 		@PostMapping("/userlogin")
-		public String loginCustomerr(@RequestBody LoginDTO customerDTO) throws Exception {
+		public String loginCustomerr(@Valid @RequestBody LoginDTO customerDTO) throws Exception {
 			return customerLoginServiceImpl.logIntoAccount(customerDTO);
 		}
 
@@ -34,7 +36,7 @@ public class LoginController {
 
 		// for admin login
 		@PostMapping("/adminlogin")
-		public String logInAdmin(@RequestBody LoginDTO adminDTO) throws LoginException {
+		public String logInAdmin(@Valid @RequestBody LoginDTO adminDTO) throws LoginException {
 			return adminLogInServiceImpl.logIntoAccount(adminDTO);
 		}
 

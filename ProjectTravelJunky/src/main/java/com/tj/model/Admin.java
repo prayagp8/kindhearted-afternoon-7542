@@ -9,6 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 
 @Entity
@@ -17,9 +21,17 @@ public class Admin {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer adminId;
+	
+	@Pattern(regexp = "^[A-Z][a-z]",message = "Name cannot start with number of symbol")
 	private String adminName;
+	
+	@Size(min = 3, max = 20, message = "Password length should be minimun 3")
 	private String password;
+	
+	@Email
 	private String email;
+	
+	@Pattern(regexp="(^$|[0-9]{10})",message = "Enter valid mobile length of length 10")
 	private String mobile;
 
 	@OneToMany(cascade = CascadeType.ALL)

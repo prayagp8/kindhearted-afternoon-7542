@@ -2,6 +2,8 @@ package com.tj.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,7 +61,7 @@ public class AdminController {
 		return new ResponseEntity<List<Report>>(reportService.viewAllReports(), HttpStatus.OK);
 	}
 	@PostMapping("/report/reports")
-	public ResponseEntity<Report> addReport(@RequestBody Report report) throws ReportException {
+	public ResponseEntity<Report> addReport(@Valid @RequestBody Report report) throws ReportException {
 		return new ResponseEntity<Report>(reportService.addReport(report), HttpStatus.ACCEPTED);
 	}
 
@@ -78,7 +80,7 @@ public class AdminController {
 ///////////////////////////Bus Controller Part
 
 	@PostMapping("/bus/buses")
-	public ResponseEntity<Bus> addBus(@RequestBody Bus bus) throws BusException {
+	public ResponseEntity<Bus> addBus(@Valid @RequestBody Bus bus) throws BusException {
 		Bus b = busService.addBus(bus);
 		return new ResponseEntity<Bus>(b, HttpStatus.OK);
 	}
@@ -106,7 +108,7 @@ public class AdminController {
 	}
 
 	@PutMapping("/travel/updatetravel")
-	public ResponseEntity<Travels> updateTravels(@RequestBody Travels travels) throws TravelsException {
+	public ResponseEntity<Travels> updateTravels(@Valid @RequestBody Travels travels) throws TravelsException {
 
 		Travels t = tservice.updateTravels(travels);
 
@@ -124,7 +126,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/travel/add")
-	public ResponseEntity<Travels> addTravels(@RequestBody Travels travels) throws TravelsException {
+	public ResponseEntity<Travels> addTravels(@Valid @RequestBody Travels travels) throws TravelsException {
 
 		Travels t = tservice.addTravels(travels);
 
@@ -159,7 +161,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/route/routes")
-	public ResponseEntity<Route> addRoute(@RequestBody Route route) throws RouteException {
+	public ResponseEntity<Route> addRoute(@Valid @RequestBody Route route) throws RouteException {
 
 		Route r = rService.addRoute(route);
 
@@ -176,7 +178,7 @@ public class AdminController {
 	}
 
 	@PutMapping("/route/routes")
-	public ResponseEntity<Route> updateRoute(@RequestBody Route route) throws RouteException {
+	public ResponseEntity<Route> updateRoute(@Valid @RequestBody Route route) throws RouteException {
 		Route r = rService.updateRoute(route);
 		return new ResponseEntity<Route>(r, HttpStatus.OK);
 	}
@@ -231,7 +233,7 @@ public class AdminController {
 	}
 	
 	@DeleteMapping("/customers")
-	public ResponseEntity<Customer> deleteCustomerByCustomer(@RequestBody Customer customer) throws CustomerException{
+	public ResponseEntity<Customer> deleteCustomerByCustomer(@Valid @RequestBody Customer customer) throws CustomerException{
 		
 		Customer customers=cService.deleteCustomer(customer);
 		

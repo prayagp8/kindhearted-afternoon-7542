@@ -1,8 +1,14 @@
 package com.tj.model;
 
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 public class LoginDTO {
 
+	@Pattern(regexp="(^$|[0-9]{10})",message = "Enter valid mobile length of length 10")
 	private String mobileNo;
+	
+	@Size(min = 3, max = 200, message = "Password length should be minimun 3")
 	private String password;
 	
 	public LoginDTO() {
