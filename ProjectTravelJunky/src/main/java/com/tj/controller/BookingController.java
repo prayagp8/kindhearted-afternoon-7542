@@ -2,6 +2,8 @@ package com.tj.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +30,7 @@ public class BookingController {
 	private PackageService packageService;
 	
 	@PostMapping("/makebooking")
-	public ResponseEntity<Booking> makeBooking(@RequestBody Booking booking) throws BookingException{
+	public ResponseEntity<Booking> makeBooking(@Valid @RequestBody Booking booking) throws BookingException{
 		Booking newBooking=bookingService.makeBooking(booking);
 		return new ResponseEntity<Booking>(newBooking, HttpStatus.CREATED);
 	}

@@ -2,7 +2,12 @@ package com.tj.controller;
 
 import java.util.List;
 
+<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
+=======
+import javax.validation.Valid;
+
+>>>>>>> 5ec7d91eceae3d076303784df4f3bb4f4b0232b5
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,7 +30,7 @@ public class HotelController {
 	private HotelService hotelService;
 
 	@PostMapping("/hotels")
-	public ResponseEntity<Hotel> addHotel(@RequestBody Hotel hotel) throws HotelException {
+	public ResponseEntity<Hotel> addHotel(@Valid @RequestBody Hotel hotel) throws HotelException {
 		return new ResponseEntity<Hotel>(hotelService.addHotel(hotel), HttpStatus.ACCEPTED);
 	}
 

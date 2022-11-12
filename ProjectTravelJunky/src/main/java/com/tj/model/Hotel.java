@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -14,10 +15,14 @@ public class Hotel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer hotelId;
+	
+	@NotNull
 	private String hotelName;
 	private String hotelType;
 	private String hotelDescription;
 	private String address;
+	
+	@NotNull
 	private Double rent;
 	private String status;
 	

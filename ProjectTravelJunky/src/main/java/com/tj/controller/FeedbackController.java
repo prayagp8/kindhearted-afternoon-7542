@@ -2,6 +2,8 @@ package com.tj.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +27,7 @@ public class FeedbackController {
 	private FeedbackService feedbackService;
 
 	@PostMapping("/feedbacks/{customerId}")
-	public ResponseEntity<Feedback> addFeedback(@RequestBody Feedback feedback,
+	public ResponseEntity<Feedback> addFeedback(@Valid @RequestBody Feedback feedback,
 			@PathVariable("customerId") Integer customerId) throws FeedbackException, CustomerException {
 
 		return new ResponseEntity<Feedback>(feedbackService.addFeedback(feedback, customerId), HttpStatus.ACCEPTED);

@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.criteria.CriteriaBuilder.In;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -20,6 +21,8 @@ public class PaymentDetails {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer paymentId;
 	private LocalDateTime time;
+	
+	@NotNull
 	private String cardNo;
 	
 	@JsonIgnore
