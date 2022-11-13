@@ -5,7 +5,7 @@ import javax.validation.constraints.Size;
 
 public class LoginDTO {
 
-	@Pattern(regexp="(^$|[0-9]{10})",message = "Enter valid mobile length of length 10")
+	@Size(min = 10, max = 10, message = "enter valid mobile no.")
 	private String mobileNo;
 	
 	@Size(min = 3, max = 200, message = "Password length should be minimun 3")

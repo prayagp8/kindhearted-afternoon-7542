@@ -33,9 +33,9 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Admin addAdmin(Admin admin) throws AdminException {
 		
-		if(admin.getMobile().equals("12345")&& admin.getPassword().equals("12345")) {
-			
+		if(admin.getMobile().equals("1234567890")&& admin.getPassword().equals("1234567890")) {
 			return aDao.save(admin);
+	
 		}else {
 			throw new AdminException("invalid admin credentials!!!");
 		}

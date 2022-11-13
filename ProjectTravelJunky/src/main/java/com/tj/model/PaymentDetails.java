@@ -13,6 +13,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.CreditCardNumber;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -22,7 +24,8 @@ public class PaymentDetails {
 	private Integer paymentId;
 	private LocalDateTime time;
 	
-	@NotNull
+	
+	@CreditCardNumber
 	private String cardNo;
 	
 	@JsonIgnore

@@ -14,6 +14,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Admin {
@@ -22,7 +24,7 @@ public class Admin {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer adminId;
 	
-	@Pattern(regexp = "^[A-Z][a-z]",message = "Name cannot start with number of symbol")
+	@Pattern(regexp = "^[A-Za-z]*",message = "Name cannot start with number of symbol")
 	private String adminName;
 	
 	@Size(min = 3, max = 20, message = "Password length should be minimun 3")
@@ -31,9 +33,10 @@ public class Admin {
 	@Email
 	private String email;
 	
-	@Pattern(regexp="(^$|[0-9]{10})",message = "Enter valid mobile length of length 10")
+	@Size(min = 10 , max = 10,message = "Enter valid mobile length of length 10")
 	private String mobile;
 
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Report> reports = new ArrayList<>();
 

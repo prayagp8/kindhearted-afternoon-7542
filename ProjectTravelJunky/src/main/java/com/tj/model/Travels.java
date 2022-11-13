@@ -18,10 +18,10 @@ public class Travels {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer travelsId;
 	
-	@Pattern(regexp = "^[A-Z][a-z]",message = "Name cannot start with number of symbol")
+	@Pattern(regexp = "^[a-zA-Z0-9_ ]*$",message = "Name cannot start with number of symbol")
 	private String travelsName;
 	
-	@Pattern(regexp = "^[A-Z][a-z]",message = "Name cannot start with number of symbol")
+	@Pattern(regexp = "^[a-zA-Z0-9_ ]*$",message = "Name cannot start with number of symbol")
 	private String agentName;
 	private String address;
 	private String contact;

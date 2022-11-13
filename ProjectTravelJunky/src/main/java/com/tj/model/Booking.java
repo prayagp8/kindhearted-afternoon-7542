@@ -18,11 +18,12 @@ public class Booking {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer bookingId;
 	
-	@Pattern(regexp = "^[A-Z][a-z]",message = "Booking type cannot start with number of symbol")
+	@Pattern(regexp = "^[a-zA-Z0-9_ ]*$",message = "Booking type cannot start with number of symbol")
 	private String bookingType;
 	private String description;
 	
-	@Pattern(regexp = "^[A-Z][a-z]",message = "Title cannot start with number of symbol")
+
+	@Pattern(regexp = "^[a-zA-Z0-9_ ]*$",message = "Title cannot start with number of symbol")
 	private String bookingTitle;
 	private LocalDate bookingDate;
 	

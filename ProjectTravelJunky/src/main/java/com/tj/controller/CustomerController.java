@@ -124,7 +124,7 @@ public class CustomerController {
 	}
 
 	@PutMapping("/customers/{key}")
-	public ResponseEntity<Customer> updateCustomerDetailsHandler(@Valid @RequestBody Customer costumer,
+	public ResponseEntity<Customer> updateCustomer(@Valid @RequestBody Customer costumer,
 			@PathVariable("key") String key) throws CustomerException {
 
 		Customer updateCu = cService.updateCustomer(costumer, key);
