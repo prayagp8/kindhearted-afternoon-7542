@@ -66,6 +66,7 @@ Go to the project resources
 
 
 Run the main file
+![Logo](https://i.postimg.cc/kM0tpJKd/p2.png)
 
 - src/main/java/com/tj/ProjectTravelJunkyApplication.java 
 
