@@ -66,7 +66,6 @@ Go to the project resources
 
 
 Run the main file
-![Logo](https://i.postimg.cc/kM0tpJKd/p2.png)
 
 - src/main/java/com/tj/ProjectTravelJunkyApplication.java 
 
@@ -74,6 +73,7 @@ Start the server
 
  - http://localhost:8888/swagger-ui/#/
 
+![Logo](https://i.postimg.cc/kM0tpJKd/p2.png)
 
 ## Roles and Responsibilities
 - Project management done by [Prayag Patel](https://github.com/prayagp8).
