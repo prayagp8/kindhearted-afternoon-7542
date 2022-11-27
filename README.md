@@ -80,6 +80,6 @@ Start the server
 - Login, controller class management and overall bug fixes done by [Prayag Patel](https://github.com/prayagp8).
 - Admin, User and Customers related files and exceptions done by [Ranjeet Kumar](https://github.com/ranjeetmasaischool).
 - Booking, Package and Hotel related files and exceptions done by [Rajan Chauhan](https://github.com/rajanchauhan165).
-- Bus, Route and Travel related files and exceptions done by [Abhishek Das](https://github.com/abhidas0810).
-- Feedback, Report and Tickets related files and exceptions done by [Gautam Kumar](https://github.com/gautamprajapat8).
+- Feedback, Report and Tickets related files and exceptions done by [Abhishek Das](https://github.com/abhidas0810).
+- Bus, Route and Travel related files and exceptions done by [Gautam Kumar](https://github.com/gautamprajapat8).
 - Readme.md done by [Rajan Chauhan](https://github.com/rajanchauhan165).
