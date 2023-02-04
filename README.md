@@ -21,35 +21,36 @@ The backend of online trip management where the admin can log in to the system a
 
 ## Admin Features
 
-- Login into the Application
+- Login/Logout using Session Id
 - User Management
-- Tours/Travels Package Management
-- Route and Bus Management
-- Ticket  and Hotel Booking Management
+- Route and Bus Booking Management
+  - All fundamental CRUD operation.
+- Hotel and Package Booking Management
+  - - All fundamental CRUD operation.
 - View Reports 
 
 
 ## User Features
 
 - Login as Customer
-- View Routes 
-- View  Tours/Travels  Packages
-- Book / Print / Cancel  Tickets
-- Payment  
-- Provide/View Testimonials
+- create Booking
+- View and Book Packages,Bus and hotels. 
+- Wallet Payment
+- PaymentDetails. 
+- Feedback
 
 
 ## Tech Stack
 
-**Client:** Java, SpringBoot, JPA with Hibernate
+**Client:** Java, SpringBoot, Spring Data JPA
 
 **RDBMS:** MySQL
 
-**Testing:** Postman, Swagger
+**Testing:** Postman
 
 
 ##  Entity Relationship
-![Logo](https://i.ibb.co/TLTdYj2/ER.jpg)
+![Travel Management System (ER Diagram)](https://user-images.githubusercontent.com/103635204/216791371-5ca2f626-2de4-4d1e-b59f-ee21eb72a62d.jpeg)
 
 ## Run Locally
 
