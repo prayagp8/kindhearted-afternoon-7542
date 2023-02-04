@@ -14,7 +14,7 @@ import com.tj.model.Route;
 import com.tj.model.TicketDetails;
 import com.tj.repository.BusDao;
 import com.tj.repository.RouteDao;
-import com.tj.repository.TicketDetailsDAO;
+
 
 @Service
 public class RouteServiceImpl implements RouteService {
@@ -23,54 +23,23 @@ public class RouteServiceImpl implements RouteService {
 	private RouteDao rDao;
 	@Autowired
 	private BusDao bDao;
-	@Autowired
-	private TicketDetailsDAO tDao;
+
 
 
 	@Override
 	public Route addRoute(Route route) throws RouteException {
+		
+		if(route.getRouteFrom().equalsIgnoreCase("") || route.getRouteTo().equalsIgnoreCase("") ) {
+		 throw new RouteException("please fill all the fields of route!");
+		}
 
-//		Optional<Route> exsistingRoute = rDao.findById(route.getRouteId());
+		
 
 			return rDao.save(route);
 		
 	}
 
-	@Override
-	public Route ticketBook(Integer routeId, Integer busId, Integer tickedId) throws RouteException, BusException, TicketException {
-		Optional<Route> exsistingRoute = rDao.findById(routeId);
-		Optional<Bus> exsistingBus = bDao.findById(busId);
-		Optional<TicketDetails> exsistingTicket = tDao.findById(tickedId);
 
-		if(exsistingRoute.isPresent()) {
-			if(exsistingBus.isPresent()) {
-				if(exsistingTicket.isPresent()) {
-					Route route = exsistingRoute.get();
-					Bus bus = exsistingBus.get();
-					TicketDetails ticket = exsistingTicket.get();
-//					route.setBus(bus);
-					ticket.setStatus("booking confirmed!!");
-					ticket.setRoute(route);
-					route.setTicketDetails(ticket);
-					
-					return rDao.save(route);
-
-				}else {
-					throw new TicketException("ticket is not available!!!");
-				}
-
-
-
-			}else {
-				throw new BusException("No bus is available for this bus id "+busId);
-			}
-
-		}else {
-			throw new RouteException("This route is not available!!");
-		}
-
-
-	}
 
 	@Override
 	public Route removeRoute(Integer routeId) throws RouteException {

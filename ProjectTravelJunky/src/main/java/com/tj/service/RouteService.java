@@ -11,7 +11,6 @@ import com.tj.model.Route;
 public interface RouteService {
 
 	public Route addRoute(Route route) throws RouteException;
-	public Route ticketBook(Integer routeId,Integer busId,Integer tickedId) throws RouteException,BusException,TicketException;
 	public Route removeRoute(Integer routeId) throws RouteException;
 	public Route searchRoute(Integer routeId) throws RouteException;
 	public List<Route> viewRouteList() throws RouteException;

@@ -8,26 +8,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tj.exception.BusException;
+import com.tj.exception.CustomerException;
 import com.tj.exception.ReportException;
 import com.tj.exception.RouteException;
 import com.tj.exception.TravelsException;
+import com.tj.model.Booking;
 import com.tj.model.Bus;
+import com.tj.model.Customer;
 import com.tj.model.Report;
 import com.tj.model.Route;
-import com.tj.model.Travels;
+import com.tj.repository.BookingDAO;
 import com.tj.repository.BusDao;
+import com.tj.repository.CustomerDao;
 import com.tj.repository.RouteDao;
-import com.tj.repository.TravelsDao;
+
 
 @Service
 public class BusServiceImpl implements BusService {
 
 	@Autowired
 	private BusDao bDao;
-	@Autowired
-	private TravelsDao tDao;
+
 	@Autowired
 	private RouteDao rDao;
+	
+	@Autowired
+	private BookingDAO bookingDAO;
 
 	@Override
 	public Bus addBus(Bus bus) throws BusException {
@@ -46,30 +52,9 @@ public class BusServiceImpl implements BusService {
 
 	}
 
-	@Override
-	public Travels addTravelService(Integer busId, Integer travelsId) throws TravelsException, BusException {
-		Optional<Bus> exsistingBus = bDao.findById(busId);
-		Optional<Travels> exsistingTravels = tDao.findById(travelsId);
-
-		if (exsistingBus.isPresent()) {
-			if (exsistingTravels.isPresent()) {
-				Bus b = exsistingBus.get();
-				b.setTravels(exsistingTravels.get());
-				bDao.save(b);
-				return exsistingTravels.get();
-
-			} else {
-				throw new TravelsException("no travel service is with this id " + travelsId);
-			}
-
-		} else {
-			throw new BusException("no bus is available with this id " + busId);
-		}
-
-	}
 
 	@Override
-	public Route addRouteServices(Integer busId, Integer routeId) throws BusException, RouteException {
+	public Bus addRouteServices(Integer busId, Integer routeId) throws BusException, RouteException {
 
 		Bus b = bDao.findById(busId).orElseThrow(() -> new BusException("bus not found with this bus id :" + busId));
 
@@ -77,11 +62,12 @@ public class BusServiceImpl implements BusService {
 				.orElseThrow(() -> new RouteException("route not found with this route id :" + routeId));
 
 		b.setRoute(r);
-		r.setBus(b);
+		
+		
 
-		bDao.save(b);
+	
 
-		return r;
+		return 	bDao.save(b);
 
 	}
 
@@ -115,6 +101,18 @@ public class BusServiceImpl implements BusService {
 		Bus b=bDao.findById(bus.getBusId())
 				.orElseThrow(()->new BusException("Bus not exists.."));
 		return bDao.save(bus);
+	}
+
+	@Override
+	public Booking addBusToBooking(Integer bId , Integer busId) throws BusException, CustomerException {
+		Booking booking = bookingDAO.findById(bId).orElseThrow(()->new CustomerException("booking not found!!"));
+		Bus bus = bDao.findById(busId).orElseThrow(()->new BusException("bus not found!!"));
+		
+		booking.setBus(bus);
+	
+		
+		
+		return bookingDAO.save(booking);
 	}
 
 	

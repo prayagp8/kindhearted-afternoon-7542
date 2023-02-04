@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.tj.exception.CustomerException;
 import com.tj.model.Customer;
+import com.tj.model.Wallet;
 import com.tj.model.currentUserSession;
 import com.tj.repository.CustomerDao;
 import com.tj.repository.SessionDao;
@@ -25,28 +26,33 @@ public class CustomerServiceImpl implements CustomerService {
 	public Customer createCustomer(Customer customer) throws CustomerException {
 
 		
-		Customer exsistingcustomer = cDao.findByMobileNo(customer.getMobileNo());
-
-		if (exsistingcustomer != null) {
-			throw new CustomerException("customer already registerd with mobile number!!");
-		}
+//		Customer exsistingcustomer = cDao.findByMobileNo(customer.getMobileNo());
+//
+//		if (exsistingcustomer != null) {
+//			throw new CustomerException("customer already registerd with mobile number!!");
+//		}
+		Wallet w = new Wallet();
+	    w.setWalletBalance(10000);
+		customer.setWallet(w);
 
 		return cDao.save(customer);
 	}
 
 	@Override
 	public Customer updateCustomer(Customer customer, String key) throws CustomerException {
-		currentUserSession loggedInUser = sDao.findByUuid(key);
+//		currentUserSession loggedInUser = sDao.findByUuid(key);
+//
+//		if (loggedInUser == null) {
+//			throw new CustomerException("please provide the valid key to update the customer!!");
+//		}
 
-		if (loggedInUser == null) {
-			throw new CustomerException("please provide the valid key to update the customer!!");
-		}
-
-		if (customer.getCustomerId() == loggedInUser.getUserId()) {
-			return cDao.save(customer);
-		} else {
-			throw new CustomerException("invalid customer details, please login first!!");
-		}
+//		if (customer.getCustomerId() == loggedInUser.getUserId()) {
+//			return cDao.save(customer);
+//		} else {
+//			throw new CustomerException("invalid customer details, please login first!!");
+//		}
+		
+		return cDao.save(customer);
 
 	}
 

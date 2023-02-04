@@ -22,73 +22,54 @@ public class PaymentDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer paymentId;
-	private LocalDateTime time;
+	private LocalDate time;
+	private String name;
+	private String address;
+	private Double TotalAmount;
+	private String Status;
 	
 	
-	@CreditCardNumber
-	private String cardNo;
 	
-	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
-	private Package packages;
-	
-	@JsonIgnore
-	@OneToOne(cascade = CascadeType.ALL)
-	private TicketDetails ticket;
-	
+	private Booking booking;
 
-	
+
+
+
+
+
+
+
+	public Booking getBooking() {
+		return booking;
+	}
+
+
+
+
+
+
+
+
+	public void setBooking(Booking booking) {
+		this.booking = booking;
+	}
+
+
+
+
+
+
+
+
 	public PaymentDetails() {
 		// TODO Auto-generated constructor stub
 	}
 
 
 
-	public LocalDateTime getTime() {
-		return time;
-	}
 
 
-
-	public void setTime(LocalDateTime time) {
-		this.time = time;
-	}
-
-
-
-	public String getCardNo() {
-		return cardNo;
-	}
-
-
-
-	public void setCardNo(String cardNo) {
-		this.cardNo = cardNo;
-	}
-
-
-
-	public Package getPackages() {
-		return packages;
-	}
-
-
-
-	public void setPackages(Package packages) {
-		this.packages = packages;
-	}
-
-
-
-	public TicketDetails getTicket() {
-		return ticket;
-	}
-
-
-
-	public void setTicket(TicketDetails ticket) {
-		this.ticket = ticket;
-	}
 
 
 
@@ -98,35 +79,181 @@ public class PaymentDetails {
 
 
 
+
+
+
+
+
 	public void setPaymentId(Integer paymentId) {
 		this.paymentId = paymentId;
 	}
 
 
 
-	public PaymentDetails(LocalDateTime time, String cardNo, Package packages, TicketDetails ticket) {
-		super();
-		this.time = time;
-		this.cardNo = cardNo;
-		this.packages = packages;
-		this.ticket = ticket;
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public String getName() {
+		return name;
 	}
+
+
+
+
+
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+
+
+
+
+
+	public String getAddress() {
+		return address;
+	}
+
+
+
+
+
+
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+
+
+
+
+
+
+	public Double getTotalAmount() {
+		return TotalAmount;
+	}
+
+
+
+
+
+
+
+
+	public void setTotalAmount(Double totalAmount) {
+		TotalAmount = totalAmount;
+	}
+
+
+
+
+
+
+
+
+	public String getStatus() {
+		return Status;
+	}
+
+
+
+
+
+
+
+
+	public void setStatus(String status) {
+		Status = status;
+	}
+
+
+
+
+
+
+
+
+	public PaymentDetails(Integer paymentId, LocalDate time, String name, String address, Double totalAmount,
+			String status) {
+		super();
+		this.paymentId = paymentId;
+		this.time = time;
+		this.name = name;
+		this.address = address;
+		TotalAmount = totalAmount;
+		Status = status;
+	}
+
+
+
+
+
 
 
 
 	@Override
 	public String toString() {
-		return "PaymentDetails [paymentId=" + paymentId + ", time=" + time + ", cardNo=" + cardNo + ", packages="
-				+ packages + ", ticket=" + ticket + "]";
+		return "PaymentDetails [paymentId=" + paymentId + ", time=" + time + ", name=" + name + ", address=" + address
+				+ ", TotalAmount=" + TotalAmount + ", Status=" + Status + "]";
+	}
+
+
+
+
+
+
+
+
+	public void setTime(LocalDate now) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+
+
+
+
+	public LocalDate getTime() {
+		return time;
 	}
 	
 	
 
 
 
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

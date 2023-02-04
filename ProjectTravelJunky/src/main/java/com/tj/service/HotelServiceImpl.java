@@ -66,7 +66,7 @@ public class HotelServiceImpl implements HotelService {
 		Package p = pDao.findById(packageId).orElseThrow(()->new PackageException("package doesn't found with this package id : "+packageId));
 
 		p.setHotel(h);
-		h.setPackages(p);
+		
 		
 		return pDao.save(p);
 

@@ -1,6 +1,7 @@
 package com.tj.model;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,9 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Bus {
@@ -27,30 +27,28 @@ public class Bus {
 	
 	@NotNull
 	private Integer capacity;
+	
+	private Integer fare;
 
-	@JsonIgnore
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	private Route route;
 	
-	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL)
-	private currentUserSession currenUserSession;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-	private Travels travels;
+
 	
 	public Bus() {
 
 	}
 
-	public Bus(Integer busId, String busType, String busNumber, Integer capacity, Route route) {
+
+	public Bus(Integer busId, String busType, @NotNull String busNumber, @NotNull Integer capacity, Integer fare) {
 		super();
 		this.busId = busId;
 		this.busType = busType;
 		this.busNumber = busNumber;
 		this.capacity = capacity;
-		this.route = route;
+		this.fare = fare;
 	}
+
 
 	public Integer getBusId() {
 		return busId;
@@ -91,26 +89,22 @@ public class Bus {
 		this.route = route;
 	}
 
-	public currentUserSession getCurrenUserSession() {
-		return currenUserSession;
+
+
+	public Integer getFare() {
+		return fare;
 	}
 
-	public void setCurrenUserSession(currentUserSession currenUserSession) {
-		this.currenUserSession = currenUserSession;
+
+	public void setFare(Integer fare) {
+		this.fare = fare;
 	}
 
-	public Travels getTravels() {
-		return travels;
-	}
-
-	public void setTravels(Travels travels) {
-		this.travels = travels;
-	}
 
 	@Override
 	public String toString() {
 		return "Bus [busId=" + busId + ", busType=" + busType + ", busNumber=" + busNumber + ", capacity=" + capacity
-				+ ", route=" + route + ", currenUserSession=" + currenUserSession + ", travels=" + travels + "]";
+				+ ", route=" + route +"]";
 	}
 
 }

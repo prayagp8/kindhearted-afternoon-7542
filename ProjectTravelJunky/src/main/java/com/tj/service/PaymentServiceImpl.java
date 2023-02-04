@@ -1,63 +1,80 @@
 package com.tj.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tj.exception.BookingException;
+import com.tj.exception.BusException;
 import com.tj.exception.HotelException;
 import com.tj.exception.PackageException;
 import com.tj.exception.PaymentException;
 import com.tj.model.Booking;
-import com.tj.model.Hotel;
-import com.tj.model.Package;
+import com.tj.model.Customer;
 import com.tj.model.PaymentDetails;
+import com.tj.model.Wallet;
 import com.tj.repository.BookingDAO;
-import com.tj.repository.HotelDAO;
-import com.tj.repository.PackageDAO;
 import com.tj.repository.PaymentDao;
 
 @Service
-public class PaymentServiceImpl implements PaymentService {
+public class PaymentServiceImpl implements PaymentService{
 
 	@Autowired
-	private PackageDAO pDao;
+	BookingDAO bookingDAO;
 	
 	@Autowired
-	private PaymentDao paymentDao;
-	
-	@Autowired
-	private BookingDAO bDao;
-	
-	@Autowired
-	private HotelDAO hDao;
-	
+	PaymentDao paymentDao;
+
 	@Override
-	public PaymentDetails payment(PaymentDetails paymentDetail, Integer packageId, Integer bookingId, Integer hotelId) throws PackageException, BookingException, HotelException{
-	 Package p  = pDao.findById(packageId).orElseThrow(()->new PackageException("package not booked!!"));
-	 Booking b =  bDao.findById(bookingId).orElseThrow(()->new BookingException("booking doesn't exsist !!"));
-	 Hotel h =  hDao.findById(hotelId).orElseThrow(()->new HotelException("hotel not booked !!"));
-	 
-	 
-	 paymentDetail.setPackages(p);
-	 p.setPayment(paymentDetail);
-	 
+	public PaymentDetails payment(Integer bookingId)
+			throws PackageException, PaymentException, BookingException, HotelException,BusException {
+		Booking b = bookingDAO.findById(bookingId).orElseThrow(()->new BookingException("Invalid booking Id!!"));
 
-	 
-	 return paymentDao.save(paymentDetail);
+		if(b.getBus()==null) {
+			throw new BusException("bus not added in the booking add bus for package confirmation!");
+		}
+		if(b.getPackages()==null) {
+			throw new PackageException("package is not selected please select package before any payment!");
+		}
+
+		b.setBookingAmt(b.getPackages().getNoOfDays()*b.getPackages().getHotel().getHotelPrice()+b.getBus().getFare());
+
+		PaymentDetails pd = new PaymentDetails();
+		pd.setAddress(b.getCustomer().getAddress());
+		pd.setBooking(b);
+		pd.setName(b.getCustomer().getName());
+		pd.setTime(LocalDate.now());
+		pd.setTotalAmount(b.getBookingAmt());
+		if(pd.getBooking().getCustomer().getWallet().getWalletBalance()>pd.getBooking().getBookingAmt()) {
+			b.setStatus("Booking confiremed!!");
+			pd.setStatus("payment done!");
+
+			pd.getBooking().getCustomer().getWallet()
+			.setWalletBalance(pd.getBooking()
+					.getCustomer().getWallet()
+					.getWalletBalance()-pd.getBooking().getBookingAmt());
+			
+			PaymentDetails p =  paymentDao.save(pd);
+			Wallet w = pd.getBooking().getCustomer().getWallet();
+			
+			return p;
+		}else {
+			throw new PaymentException("not sufficieant balance in user wallet!!");
+		}
+
+
+
+
+
+		
 	}
 
 	@Override
 	public List<PaymentDetails> veiwAllPayments() throws PaymentException {
-		List<PaymentDetails> pList = paymentDao.findAll();
-		if(pList.size()==0) {
-			throw new PaymentException("No payment record is available!!");
-		}else {
-			return pList;
-		}
-		
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
 
 }
