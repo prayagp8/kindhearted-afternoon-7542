@@ -26,7 +26,7 @@ The backend of online trip management where the admin can log in to the system a
 - Route and Bus Booking Management
   - All fundamental CRUD operation.
 - Hotel and Package Booking Management
-  - - All fundamental CRUD operation.
+  - All fundamental CRUD operation.
 - View Reports 
 
 
